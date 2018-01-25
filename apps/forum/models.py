@@ -7,6 +7,15 @@ import datetime
 # Create your models here.
 
 class Board(models.Model):
+    """This is a class for the Board Object
+
+    Attributes:
+        name: A string that holds the name of the board
+        abbreviation: A string that holds the abbreviation of the board
+        slug: A string that holds the slug URL snippet for readable URLs
+        lastUpdated: A DateTime that stores the last time a post was contributed
+                    to.
+    """
 
     name = models.CharField(max_length=50, db_index=True)
     abbreviation = models.CharField(max_length=10, db_index=True)
@@ -22,6 +31,12 @@ class Board(models.Model):
 
 
     def latestPost(self):
+        """
+            This function is to receives the latest post from a specific board
+
+            Args:
+                self: current instance of that object
+        """
         lastPost = self.thread.order_by('created').first()
         if lastPost:
             return lastPost
@@ -30,6 +45,26 @@ class Board(models.Model):
 
 
 class Thread(models.Model):
+    """
+        Class for the Thread Object
+
+        Attributes:
+            title: a string that holds the title of the thread
+            content: a longer string that holds all the content of thread
+            slug: a string that holds the slug URL snippet for the Thread
+            created: a datetime object that holds the time the Thread was created
+            creator: the User Object that created the Thread
+            board: a reference to the board model where the Thread will be posted
+            numberOfReplies: an integer that holds the amount of times the thread
+                             has been replied to
+            viewCount: an integer that holds the amount of times the Thread has
+                       been viewed by other users
+            numberOfImages: an integer that shows how many images are within the
+                            thread repliess
+            image: a Image model that holds an image given for the thread
+            latestReplyTime: a Datetime object that holds the last time a user
+                             has replied to the thread
+    """
     title = models.CharField(max_length=250, db_index=True)
     content = models.TextField(default = '')
     slug = models.SlugField(max_length=250, db_index=True)
@@ -62,6 +97,10 @@ class Thread(models.Model):
         return latestReply
 
     def save(self, **kwargs):
+        """
+            This function overrides the save function of the
+            thread model in order to uppdate latestReply and numberOfReplies
+        """
         if not self.pk:
             slug = self.title
             slug = slug.lower()
@@ -73,10 +112,19 @@ class Thread(models.Model):
             self.numberOfReplies = len(self.posts)
 
 
-        super(Item, self).save(**kwargs)
+        super(Thread, self).save(**kwargs)
 
 
 class Post(models.Model):
+    """
+        A class for Post object
+        Attributes:
+            content: the content within the post itself (the text)
+            created: a date time object that stored the time of the post's creation
+            creator: the user who created the post
+            thread: a foreign key to a thread object where the post has been made
+            image: an imagefield for posts.
+    """
     content = models.TextField(default = '')
     created = models.DateTimeField(auto_now = True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -95,3 +143,9 @@ class Post(models.Model):
         ordering = ['created']
         verbose_name = 'post'
         verbose_name_plural = 'posts'
+
+    def save(self, **kwargs):
+        if not self.pk:
+            self.thread.save()
+
+        super(Post, self).save(**kwargs)

@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'corsheaders',
 
-    'apps.forum'
+    'apps.forum',
+    'apps.store'
 ]
 
 MIDDLEWARE = [
