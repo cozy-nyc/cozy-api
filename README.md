@@ -1,11 +1,9 @@
 # cozy.nyc backend
 
-# exchange
-
-### Requirements
+## Requirements
 * Python 3.5 or higher
 
-### Setup and customize
+## Setup and customize
 
 1. Edit the environement variables
 ` touch .env`
