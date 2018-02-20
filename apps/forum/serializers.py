@@ -72,7 +72,6 @@ class ThreadListSerializer(ModelSerializer):
         model = Thread
         fields = [
             'title',
-            'content',
             'created',
             'creator',
             'board',

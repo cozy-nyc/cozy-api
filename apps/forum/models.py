@@ -50,7 +50,6 @@ class Thread(models.Model):
 
         Attributes:
             title: a string that holds the title of the thread
-            content: a longer string that holds all the content of thread
             slug: a string that holds the slug URL snippet for the Thread
             created: a datetime object that holds the time the Thread was created
             creator: the User Object that created the Thread
@@ -66,7 +65,6 @@ class Thread(models.Model):
                              has replied to the thread
     """
     title = models.CharField(max_length=250, db_index=True)
-    content = models.TextField(default = '')
     slug = models.SlugField(max_length=250, db_index=True)
     created = models.DateTimeField(auto_now = True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
