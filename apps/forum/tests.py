@@ -35,6 +35,38 @@ class ThreadTestCase(TestCase):
         """
         set up for the tests
         """
+        User.objects.create_user(username='john',
+                                email='jlennon@beatles.com',
+                                password='glassonion'
+                                )
+        Board.objects.create(name="Technology",
+                             abbreviation = "g",
+                             )
+        Thread.objects.create(title="/g/ related memes",
+                              creator = User.objects.get(username = 'john'),
+                              board = Board.objects.get(abbreviation = 'g')
+                              )
+    
+    def test_thread_exists_under_board(self):
+        '''
+        A Simple test to see that our thread exists on our board
+        as the latest thread created
+        '''
+        latestThread = Board.objects.get(name = "Technology").latestPost()
+        self.assertEqual(latestThread, Thread.objects.get(title = '/g/ related memes'))
+
+    def update_for_board_test(self):
+        '''
+        This test adds a new thread under the board to see if
+        our updates in the ORM work
+        '''
+        Thread.objects.create(title = "headphone general",
+                              creator = User.objects.get(username = 'john'),
+                              board = Board.objects.get(abbreviation = 'g')
+                              )
+
+        newLatestThread = Board.objects.get(name = "Technology").latestPost()
+        self.assertEqual(newLatestThread, Thread.objects.get(title = 'headphone general'))
 
 
 class PostTestCase(TestCase):
@@ -46,3 +78,22 @@ class PostTestCase(TestCase):
         """
         set up for the tests
         """
+        User.objects.create_user(username='john',
+                                email='jlennon@beatles.com',
+                                password='glassonion'
+                                )
+        Board.objects.create(name="Technology",
+                             abbreviation = "g",
+                             )
+        Thread.objects.create(title="/g/ related memes",
+                              creator = User.objects.get(username = 'john'),
+                              board = Board.objects.get(abbreviation = 'g')
+                              )
+        Post.objects.create(content = 'install memetoo',
+                            creator = User.objects.get(username = 'john'),
+                            thread = Thread.objects.get(title = "/g/ related memes"),
+                            )
+        
+    
+    
+
