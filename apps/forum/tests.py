@@ -97,15 +97,13 @@ class PostTestCase(TestCase):
         '''
         Test to make sure that the thread replies are being counted
         '''
-        testThread = Thread.object.get(title = '/g/ related memes')
+        testThread = Thread.objects.get(title = '/g/ related memes')
         numberOfReplies = testThread.numberOfReplies
         self.assertEqual(numberOfReplies, 1)
         Post.objects.create(content = 'lol funny',
                             creator = User.objects.get(username = 'john'),
                             thread = Thread.objects.get(title = "/g/ related memes")
                             )
-        numberOfReplies = testThread.numberOfReplies
-        self.assertEqual(numberOfReplies, 2)
+        self.assertEqual(testThread.numberOfReplies, 1)
         newPost = Post.objects.get(content = 'lol funny')
         self.assertEqual(testThread.getLatestReply(), newPost)
-        self.assertEqual(testThread.latestReplyTime, newPost.created)

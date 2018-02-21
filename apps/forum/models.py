@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
-import datetime
+from datetime import datetime
 # Create your models here.
 
 class Board(models.Model):
@@ -37,10 +37,8 @@ class Board(models.Model):
             Args:
                 self: current instance of that object
         """
-        lastPost = self.thread.order_by('created').first()
-        if lastPost:
-            return lastPost
-        return None
+        return self.thread.order_by('created').last()
+
 
 
 
@@ -88,10 +86,8 @@ class Thread(models.Model):
         verbose_name_plural = 'threads'
 
     def getLatestReply(self):
-        latestReply = self.posts.order_by('created').first()
-        if latestReply:
-            return latestReply
-        return latestReply
+        return self.post.order_by('created').last()
+
 
     def save(self, **kwargs):
         """
@@ -105,8 +101,8 @@ class Thread(models.Model):
             self.slug = slug
 
         if self.pk:
-            self.latestReplyTime = self.getLatestReply().created
-            self.numberOfReplies = len(self.posts)
+            self.latestReplyTime = datetime.now
+
 
 
         super(Thread, self).save(**kwargs)
@@ -125,7 +121,7 @@ class Post(models.Model):
     content = models.TextField(default = '')
     created = models.DateTimeField(auto_now = True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE)
+    thread = models.ForeignKey(Thread, related_name='post', on_delete=models.CASCADE)
     image = models.ImageField(max_length = 255,
                               upload_to='uploads/forum/post',
                               blank=True,
@@ -143,6 +139,7 @@ class Post(models.Model):
 
     def save(self, **kwargs):
         if not self.pk:
+            self.thread.numberOfReplies = self.thread.numberOfReplies + 1
             self.thread.save()
 
         super(Post, self).save(**kwargs)
