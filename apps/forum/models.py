@@ -79,7 +79,6 @@ class Thread(models.Model):
                               null=True)
     latestReplyTime = models.DateTimeField(auto_now = True)
 
-
     def __str__(self):
         self.title
 
@@ -106,7 +105,7 @@ class Thread(models.Model):
             self.slug = slug
 
         if self.pk:
-            self.latestReply = self.getLatestReply()
+            self.latestReplyTime = self.getLatestReply().created
             self.numberOfReplies = len(self.posts)
 
 
