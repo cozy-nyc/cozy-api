@@ -36,3 +36,7 @@ DEFAULT_FROM_EMAIL=default@cozy.nyc
 ```
 pip install -r local.txt
 ```
+4. Run basic django commands such as
+```
+python manage.py runserver
+```
