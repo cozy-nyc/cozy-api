@@ -86,9 +86,6 @@ class SubCategory(models.Model):
 
         super(SubCategory, self).save(**kwargs)
 
-
-
-
     class Meta:
         ordering = ('name',)
         verbose_name = 'subcategory'
