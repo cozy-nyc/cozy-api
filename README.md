@@ -30,3 +30,11 @@ EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 DEFAULT_FROM_EMAIL=default@cozy.nyc
 
 ```
+3. In the requirements folder run
+```
+pip install -r local.txt
+```
+4. Run basic django commands such as
+```
+python manage.py runserver
+```

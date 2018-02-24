@@ -99,13 +99,13 @@ class ItemTestCase(TestCase):
         item = Item.objects.findItem(name = 'Yankee', subCategory = 'T-Shirts')
         self.assertEqual(len(item),1)
 
-
+'''THESE TESTS ARE DISCARDED SINCE LISTINGS IS NO LONGER A FIELD IN THE DATABASE
 class ListingTestCase(TestCase):
     def setUp(self):
-        '''
+        """
         Set up for tests of listings.
         Adding multiple users, categories, subcategories, items and listing
-        '''
+        """
         user = User.objects.create_user(username='john',
         email='jlennon@beatles.com',
         password='glassonion'
@@ -172,11 +172,11 @@ class ListingTestCase(TestCase):
         )
 
     def test_lowest_current_price(self):
-        '''
+        """
         tests if the loweest current price matches our query and how the
         new listing function is set up to automatically update the item
         if a new listing is created that has a smaller price then the previous
-        '''
+        """
         lowestPrice = Listing.objects.lowestCurrentPrice(
         itemRef = 'Supreme Yankee Box Logo T-Shirt White'
         )
@@ -204,12 +204,12 @@ class ListingTestCase(TestCase):
 
 
     def test_highest_current_price(self):
-        '''
+        """
         tests if the highest current price matches our query and how the
         new listing function is set up to automatically update the item
         if a new listing is created that has a higher price then the previous
         highest price
-        '''
+        """
         highestPrice = Listing.objects.highestCurrentPrice(
         itemRef = 'Supreme Yankee Box Logo T-Shirt White'
         )
@@ -222,11 +222,11 @@ class ListingTestCase(TestCase):
 
 class TransactionTestCase(TestCase):
     def setUp(self):
-        '''
+        """
         set up for the transactions tests
         adding multiple users, categories, items, subcategories,
         listings, as well as transactions
-        '''
+        """
         user = User.objects.create_user(username='john',
         email='jlennon@beatles.com',
         password='glassonion'
@@ -309,3 +309,4 @@ class TransactionTestCase(TestCase):
     #def test_average_sale(self):
 
     #    transaction1 = Transaction.objects.get()
+'''
