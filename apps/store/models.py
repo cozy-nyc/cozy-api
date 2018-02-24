@@ -86,9 +86,6 @@ class SubCategory(models.Model):
 
         super(SubCategory, self).save(**kwargs)
 
-
-
-
     class Meta:
         ordering = ('name',)
         verbose_name = 'subcategory'
@@ -120,10 +117,6 @@ class Item(models.Model):
             category: A foregin key to category to make items more organized
             subCategory: A foregin key to subCatergory to make our items even more organized
             avgSoldPrice: A number which will go through all items to achieve the avgSoldPrice
-            lowestCurrListing: A number which will represent the lowest current avaible item. A query will be used to find this
-            highestCurrListing: A number which will represent the highest current available item. A query will be used to find this
-            lowestSoldListing: A number which will represent the lowest price a item has been sold for this item.
-            highestSoldListing: A number which will represent the highest price a item has been sold for that item.
             lastActive: A date and time which represent when the last time the item has been edited
             available: A boolean which represents whether there are items avialble or not
             created = The date and time field that the item was created
