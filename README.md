@@ -5,13 +5,13 @@
 
 ## Setup and customize
 
-` touch .env` To create a environement file with the following values filled
+1. ` touch .env` To create a environement file with the following values filled
 
 ```
 DEBUG=true
 SECRET_KEY=[secret-key]
 DJANGO_SETTINGS_MODULE=django_config.settings.local
-ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+ALLOWED_HOSTS=localhost,127.0.0.1, 0.0.0.0
 DATABASE_URL=postgres://dev:tester321@localhost:5432/exchange
 
 MAILGUN_API_KEY=[mailgun-api-key]
@@ -30,11 +30,13 @@ EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 DEFAULT_FROM_EMAIL=default@cozy.nyc
 
 ```
-3. In the requirements folder run
+2. In the requirements folder run
 ```
 pip install -r local.txt
 ```
-4. Run basic django commands such as
+3. Run basic django commands such as
 ```
+python manage.py makemigrations
+python manage.py migrate
 python manage.py runserver
 ```
