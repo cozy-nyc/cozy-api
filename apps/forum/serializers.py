@@ -5,6 +5,7 @@ from rest_framework.serializers import (
     StringRelatedField,
     RelatedField,
     ReadOnlyField,
+    PrimaryKeyRelatedField
     )
 
 from apps.forum.models import Board, Post, Thread
@@ -15,21 +16,27 @@ class BoardListSerializer(ModelSerializer):
         fields = [
             'id',
             'name',
+            'tag'
         ]
 
-
 class BoardDetailSerializer(ModelSerializer):
+    threads = PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Board
         fields = [
             'id',
             'name',
             'slug',
-            'abbreviation',
-            'lastUpdated'
+            'tag',
+            'threads'
         ]
-
-
+class BoardCreateUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Board
+        fields = [
+            'name',
+            'tag'
+        ]
 
 class ThreadCreateUpdateSerializer(ModelSerializer):
     class Meta:
@@ -42,6 +49,7 @@ class ThreadCreateUpdateSerializer(ModelSerializer):
 
 
 class ThreadDetailSerializer(ModelSerializer):
+    post = PrimaryKeyRelatedField(many = True, read_only = True)
     class Meta:
         board = BoardDetailSerializer(read_only=True)
         image = SerializerMethodField()
@@ -50,14 +58,17 @@ class ThreadDetailSerializer(ModelSerializer):
             'title',
             'slug',
             'created',
-            'creator',
+            'poster',
+            'tag',
+            'blurb',
             'board',
-            'numberOfReplies',
+            'replyCount',
             'latestReplyTime',
-            'image',
-            'viewCount',
-            'numberOfImages'
+            'views',
+            'imageCount',
+            'posts'
         ]
+
         def get_image(self,obj):
             try:
                 image = obj.image.url
@@ -73,12 +84,14 @@ class ThreadListSerializer(ModelSerializer):
         fields = [
             'title',
             'created',
-            'creator',
+            'tag',
+            'poster',
             'board',
-            'numberOfReplies',
+            'blurb',
+            'replyCount',
             'image',
-            'viewCount',
-            'numberOfImages'
+            'views',
+            'imageCount'
         ]
 
         def get_image(self,obj):
@@ -87,7 +100,6 @@ class ThreadListSerializer(ModelSerializer):
             except:
                 image = None
             return image
-
 
 
 class PostCreateUpdateSerializer(ModelSerializer):
@@ -103,33 +115,31 @@ class PostCreateUpdateSerializer(ModelSerializer):
 
 class PostDetailSerializer(ModelSerializer):
     class Meta:
-        thread = ThreadDetailSerializer(read_only=True)
         model = Post
         image = SerializerMethodField()
         fields = [
             'content',
             'created',
-            'creator',
-            'post',
+            'poster',
+            'message',
             'image'
         ]
 
         def get_image(self,obj):
             try:
-                iamge = obj.image.url
+                image = obj.image.url
             except:
                 image = None
             return image
 
 class PostListSerializer(ModelSerializer):
     class Meta:
-        thread = ThreadDetailSerializer(read_only = True)
         model = Post
         image = SerializerMethodField()
         fields = [
             'content',
             'created',
-            'creator',
-            'post',
+            'poster',
+            'message',
             'image'
         ]

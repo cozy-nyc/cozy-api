@@ -13,11 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
 from django.conf import settings
-from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from django.contrib.auth import views as auth_views
@@ -38,5 +37,4 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store'))
-
 ]

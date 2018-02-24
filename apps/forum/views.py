@@ -39,7 +39,10 @@ class BoardDetail(RetrieveAPIView):
     serializer_class = BoardDetailSerializer
     permission_classes = [AllowAny]
 
-
+class BoardCreate(CreateAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardCreateUpdateSerializer
+    permission_classes = [IsAdminUser]
 
 class ThreadCreate(CreateAPIView):
     queryset = Thread.objects.all()
@@ -58,7 +61,7 @@ class ThreadList(ListAPIView):
     serializer_class = ThreadListSerializer
     permission_classes = [AllowAny]
     filter_backends = (DjangoFilterBackend,)
-    search_fields = ['content', 'title']
+    search_fields = ['title']
 
 
 
