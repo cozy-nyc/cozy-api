@@ -5,16 +5,14 @@
 
 ## Setup and customize
 
-1. Edit the environement variables
-` touch .env`
-2. Create env/dev with the following values filled
+` touch .env` To create a environement file with the following values filled
 
 ```
 DEBUG=true
 SECRET_KEY=[secret-key]
 DJANGO_SETTINGS_MODULE=django_config.settings.local
 ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
-DATABASE_URL=postgres://dev:tester321@localhost:5432/cozyexchange
+DATABASE_URL=postgres://dev:tester321@localhost:5432/exchange
 
 MAILGUN_API_KEY=[mailgun-api-key]
 MAILGUN_DEFAULT_FROM_EMAIL=[email]
