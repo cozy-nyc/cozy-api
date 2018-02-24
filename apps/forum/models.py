@@ -63,7 +63,6 @@ class Thread(models.Model):
     title = models.CharField(max_length=250, db_index=True)
     slug = models.SlugField(max_length=250, db_index=True)
     created = models.DateTimeField(auto_now = True)
-    poster = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     board = models.ForeignKey(Board, related_name='threads', on_delete=models.CASCADE)
     replyCount = models.PositiveIntegerField(default = 0)
     views = models.PositiveIntegerField(default = 0)
@@ -86,8 +85,12 @@ class Thread(models.Model):
     def blurb(self):
         return self.posts.order_by('created'.first().message[:50])
 
+    @property
+    def poster(self):
+        return self.posts.order_by('created').first().poster
+
     def __str__(self):
-        self.title
+        return self.title
 
     class Meta:
         ordering = ['created']
@@ -134,7 +137,7 @@ class Post(models.Model):
                               null=True)
 
     def __str__(self):
-        self.message
+       return self.message
 
     class Meta:
         ordering = ['created']

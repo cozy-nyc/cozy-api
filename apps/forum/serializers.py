@@ -10,32 +10,48 @@ from rest_framework.serializers import (
 
 from apps.forum.models import Board, Post, Thread
 
-class BoardListSerializer(ModelSerializer):
+
+
+class PostCreateUpdateSerializer(ModelSerializer):
     class Meta:
-        model = Board
+        model = Post
         fields = [
-            'id',
-            'name',
-            'tag'
+            'post',
+            'message',
+            'thread',
+            'image'
         ]
 
-class BoardDetailSerializer(ModelSerializer):
-    threads = PrimaryKeyRelatedField(many=True, read_only=True)
+
+class PostDetailSerializer(ModelSerializer):
     class Meta:
-        model = Board
+        model = Post
+        image = SerializerMethodField()
         fields = [
             'id',
-            'name',
-            'slug',
-            'tag',
-            'threads'
+            'created',
+            'poster',
+            'message',
+            'image'
         ]
-class BoardCreateUpdateSerializer(ModelSerializer):
+
+        def get_image(self,obj):
+            try:
+                image = obj.image.url
+            except:
+                image = None
+            return image
+
+class PostListSerializer(ModelSerializer):
     class Meta:
-        model = Board
+        model = Post
+        image = SerializerMethodField()
         fields = [
-            'name',
-            'tag'
+            'id',
+            'created',
+            'poster',
+            'message',
+            'image'
         ]
 
 class ThreadCreateUpdateSerializer(ModelSerializer):
@@ -49,12 +65,12 @@ class ThreadCreateUpdateSerializer(ModelSerializer):
 
 
 class ThreadDetailSerializer(ModelSerializer):
-    post = PrimaryKeyRelatedField(many = True, read_only = True)
+    posts = PostDetailSerializer(many = True, read_only = True)
     class Meta:
-        board = BoardDetailSerializer(read_only=True)
         image = SerializerMethodField()
         model = Thread
         fields = [
+            'id',
             'title',
             'slug',
             'created',
@@ -78,20 +94,18 @@ class ThreadDetailSerializer(ModelSerializer):
 
 class ThreadListSerializer(ModelSerializer):
     class Meta:
-        board = BoardDetailSerializer(read_only=True)
         image = SerializerMethodField()
         model = Thread
         fields = [
+            'id',
             'title',
-            'created',
-            'tag',
-            'poster',
-            'board',
             'blurb',
-            'replyCount',
-            'image',
             'views',
-            'imageCount'
+            'replyCount',
+            'imageCount',
+            'created',
+            'poster',
+            
         ]
 
         def get_image(self,obj):
@@ -102,44 +116,30 @@ class ThreadListSerializer(ModelSerializer):
             return image
 
 
-class PostCreateUpdateSerializer(ModelSerializer):
+class BoardListSerializer(ModelSerializer):
     class Meta:
-        model = Post
+        model = Board
         fields = [
-            'post',
-            'content',
-            'thread',
-            'image'
+            'id',
+            'name',
+            'tag'
         ]
 
-
-class PostDetailSerializer(ModelSerializer):
+class BoardDetailSerializer(ModelSerializer):
+    threads = ThreadListSerializer(many=True, read_only=True)
     class Meta:
-        model = Post
-        image = SerializerMethodField()
+        model = Board
         fields = [
-            'content',
-            'created',
-            'poster',
-            'message',
-            'image'
+            'id',
+            'name',
+            'slug',
+            'tag',
+            'threads'
         ]
-
-        def get_image(self,obj):
-            try:
-                image = obj.image.url
-            except:
-                image = None
-            return image
-
-class PostListSerializer(ModelSerializer):
+class BoardCreateUpdateSerializer(ModelSerializer):
     class Meta:
-        model = Post
-        image = SerializerMethodField()
+        model = Board
         fields = [
-            'content',
-            'created',
-            'poster',
-            'message',
-            'image'
+            'name',
+            'tag'
         ]
