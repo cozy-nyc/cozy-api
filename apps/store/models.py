@@ -9,7 +9,8 @@ import datetime
 
 
 class Category(models.Model):
-    """This is a model for a predetermined list of clothing categories.
+    """
+    This is a model for a predetermined list of clothing categories.
 
     List:
         Jackets, shirts, sweaters, sweatshirts, pants, t-shirts, hats, accessories, skate, bike, and other
