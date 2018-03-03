@@ -10,14 +10,14 @@ import datetime
 
 class Category(models.Model):
     """
-    This is a model for a predetermined list of clothing categories.
+        This is a model for a predetermined list of clothing categories.
 
-    List:
-        Jackets, shirts, sweaters, sweatshirts, pants, t-shirts, hats, accessories, skate, bike, and other
+        List:
+            Jackets, shirts, sweaters, sweatshirts, pants, t-shirts, hats, accessories, skate, bike, and other
 
-    Attributes:
-        name: A string of the name of a category
-        slug: A slug to make our links more presentable on the web app
+        Attributes:
+            name: A string of the name of a category
+            slug: A slug to make our links more presentable on the web app
     """
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True, unique=True)
