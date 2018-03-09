@@ -10,6 +10,7 @@ class Profile(models.Model):
             clan: The clan the user is in.
             profileImg: The user's profile image.
             location: Optional location text field.
+            name: A property that holds reference the django user's name
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     clan = models.ForeignKey(Clan , on_delete=models.CASCADE)
@@ -19,6 +20,14 @@ class Profile(models.Model):
     def __unicode__(self):
         return self.user.username
 
+    @property
+    def name(self):
+        return self.user.username
+    
+    @property
+    def image(self):
+        return self.profileImg.image
+    
 
 
 class Clan(models.Model):
