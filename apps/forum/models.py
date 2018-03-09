@@ -26,7 +26,7 @@ class Board(models.Model):
 
     class Meta:
         ordering = ('name',)
-        verbose_name = 'board'
+        verbose_name = 'board' 
         verbose_name_plural = 'boards'
 
     @property
@@ -61,7 +61,7 @@ class Thread(models.Model):
                              has replied to the thread
     """
     title = models.CharField(max_length=250, db_index=True)
-    slug = models.SlugField(max_length=250, db_index=True)
+    slug = models.SlugField(max_length=250, db_index=True, blank=True)
     created = models.DateTimeField(auto_now = True)
     board = models.ForeignKey(Board, related_name='threads', on_delete=models.CASCADE)
     replyCount = models.PositiveIntegerField(default = 0)
@@ -83,11 +83,11 @@ class Thread(models.Model):
 
     @property
     def blurb(self):
-        return self.posts.order_by('created'.first().message[:50])
+        return self.posts.order_by('created').first().message[:50]
 
     @property
     def poster(self):
-        return self.posts.order_by('created').first().poster
+        return self.posts.order_by('created').first().poster.username
 
     def __str__(self):
         return self.title
