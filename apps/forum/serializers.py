@@ -5,7 +5,9 @@ from rest_framework.serializers import (
     StringRelatedField,
     RelatedField,
     ReadOnlyField,
-    PrimaryKeyRelatedField
+    PrimaryKeyRelatedField,
+    ReadOnlyField,
+    Field
     )
 
 from apps.forum.models import Board, Post, Thread
@@ -93,6 +95,7 @@ class ThreadDetailSerializer(ModelSerializer):
             return image
 
 class ThreadListSerializer(ModelSerializer):
+    blurb = ReadOnlyField()
     class Meta:
         image = SerializerMethodField()
         model = Thread
