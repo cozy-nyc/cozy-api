@@ -52,8 +52,11 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     clan = models.ForeignKey(Clan , on_delete=models.CASCADE)
-    profileImg = models.ForeignKey(ProfileImg , on_delete=models.CASCADE, null = True)
+    profileImg = models.ForeignKey(ProfileImg , on_delete=models.CASCADE, blank = True)
     location = models.TextField(max_length=50, blank=True)
+
+    def __str__(self):
+        return self.user.username
 
     def __unicode__(self):
         return self.user.username

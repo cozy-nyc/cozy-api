@@ -26,13 +26,11 @@ class ProfileDetailSerializer(ModelSerializer):
     name = ReadOnlyField()
     class Meta:
         model = Profile
-        fields = [
-            'user',
+        fields = [ 
+            'name',
             'clan',
-            'profileImage'
             'image',
-            'location',
-            'name'
+            'location'
         ]
 
         def get_image(self,obj):
@@ -47,7 +45,6 @@ class ProfileListSerializer(ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'user',
             'name'
             'clan',
             'image'

@@ -88,7 +88,7 @@ class Thread(models.Model):
 
     @property
     def poster(self):
-        return self.posts.order_by('created').first().poster.name
+        return self.posts.order_by('created').first().poster
 
     def __str__(self):
         return self.title
