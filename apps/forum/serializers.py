@@ -49,6 +49,7 @@ class PostDetailSerializer(ModelSerializer):
             return image
 
 class PostListSerializer(ModelSerializer):
+    poster = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Post
         image = SerializerMethodField()
@@ -72,7 +73,6 @@ class ThreadCreateUpdateSerializer(ModelSerializer):
 
 class ThreadDetailSerializer(ModelSerializer):
     posts = PostDetailSerializer(many = True, read_only = True)
-    poster = ProfileDetailSerializer(read_only = True)
     class Meta:
         image = SerializerMethodField()
         model = Thread
@@ -101,7 +101,6 @@ class ThreadDetailSerializer(ModelSerializer):
 
 class ThreadListSerializer(ModelSerializer):
     blurb = ReadOnlyField()
-    poster = ProfileDetailSerializer(read_only = True)
     class Meta:
         image = SerializerMethodField()
         model = Thread
