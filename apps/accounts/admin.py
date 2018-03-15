@@ -1,4 +1,5 @@
 from django.contrib import admin
+from apps.accounts.models import Profile, Clan, ProfileImg
 
 class ProfileAdmin(admin.ModelAdmin):
     """
@@ -12,7 +13,7 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.register(Profile, ProfileAdmin)
 
 
-class Clan(admin.ModelAdmin):
+class ClanAdmin(admin.ModelAdmin):
     """
         Nothing Yet.
 
@@ -20,4 +21,4 @@ class Clan(admin.ModelAdmin):
             "Add sorts for clans by name and popularity" - Rantahu
     """
 
-admin.site.register(Clan, ProfileImg)
+admin.site.register(Clan, ClanAdmin)

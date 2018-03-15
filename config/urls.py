@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from django.conf.urls import include
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls import include, url
@@ -25,16 +26,16 @@ from django.apps import apps
 
 forum_name = apps.get_app_config('forum').verbose_name
 store_name = apps.get_app_config('store').verbose_name
+accounts_name = apps.get_app_config('accounts').verbose_name
 
 from apps.forum import views as forum_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api-token-refresh/', refresh_jwt_token),
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
-    url(r'^', include(('apps.store.urls', store_name), namespace='store'))
+    url(r'^', include(('apps.store.urls', store_name), namespace='store')),
+    url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),
 ]

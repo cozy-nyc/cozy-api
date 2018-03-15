@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.signals import post_save
 from datetime import datetime
+from apps.accounts.models import Profile
 # Create your models here.
 
 class Board(models.Model):
@@ -87,7 +88,7 @@ class Thread(models.Model):
 
     @property
     def poster(self):
-        return self.posts.order_by('created').first().poster.username
+        return self.posts.order_by('created').first().poster.name
 
     def __str__(self):
         return self.title
@@ -128,7 +129,7 @@ class Post(models.Model):
     """
     message = models.TextField(default = '')
     created = models.DateTimeField(auto_now = True)
-    poster = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
     thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE)
     image = models.ImageField(max_length = 255,
                               upload_to='uploads/forum/post',
