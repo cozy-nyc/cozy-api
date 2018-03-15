@@ -42,19 +42,3 @@ class ProfileDetail(RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileDetailSerializer
     permission_classes = [AllowAny]
-
-class ProfileList(ListAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileListSerializer
-    filter_backends = (DjangoFilterBackend,)
-    search_fields = ['name']
-    permission_classes = [AllowAny]
-
-    def get_queryset(self, *args, **kwargs):
-        queryset_list = Profile.objects.all()
-        query = self.request.GET.get("q")
-        if query:
-            queryset_list = queryset_list.filter(
-                Q(name__icontains = query)
-            ).distinct()
-        return queryset_list

@@ -20,8 +20,8 @@ class PostCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'post',
             'message',
+            'poster',
             'thread',
             'image'
         ]

@@ -47,12 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-
     'allauth',
-    'rest_framework',
-    'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
+    'rest_framework',
+    'rest_framework.authtoken',
     'webpack_loader',
     'corsheaders',
 
