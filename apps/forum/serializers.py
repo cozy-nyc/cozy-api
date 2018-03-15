@@ -5,10 +5,14 @@ from rest_framework.serializers import (
     StringRelatedField,
     RelatedField,
     ReadOnlyField,
-    PrimaryKeyRelatedField
+    PrimaryKeyRelatedField,
+    ReadOnlyField,
+    Field
     )
 
 from apps.forum.models import Board, Post, Thread
+from apps.accounts.models import Profile
+from apps.accounts.serializers import ProfileDetailSerializer
 
 
 
@@ -16,17 +20,19 @@ class PostCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'post',
             'message',
+            'poster',
             'thread',
             'image'
         ]
 
 
 class PostDetailSerializer(ModelSerializer):
+    poster = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Post
         image = SerializerMethodField()
+
         fields = [
             'id',
             'created',
@@ -43,6 +49,7 @@ class PostDetailSerializer(ModelSerializer):
             return image
 
 class PostListSerializer(ModelSerializer):
+    poster = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Post
         image = SerializerMethodField()
@@ -93,6 +100,7 @@ class ThreadDetailSerializer(ModelSerializer):
             return image
 
 class ThreadListSerializer(ModelSerializer):
+    blurb = ReadOnlyField()
     class Meta:
         image = SerializerMethodField()
         model = Thread

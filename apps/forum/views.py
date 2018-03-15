@@ -119,9 +119,6 @@ class ThreadList(ListAPIView):
     search_fields = ['title']
 
 
-
-
-
 class PostCreate(CreateAPIView):
     """
         This view is for API post request to create a post.
