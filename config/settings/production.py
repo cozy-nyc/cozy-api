@@ -17,7 +17,7 @@ WEBPACK_LOADER = {
 # ------------------------------------------------------------------------------
 # https://whitenoise.readthedocs.io/
 
-MIDDLEWARE = DJANGO_SECURITY_MIDDLEWARE + ['whitenoise.middleware.WhiteNoiseMiddleware'] + DJANGO_MIDDLEWARE
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -34,11 +34,11 @@ INSTALLED_APPS += ('gunicorn', )
 # Hosts/domain names that are valid for this site
 # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
 
-ALLOWED_HOSTS = config(
-    'ALLOWED_HOSTS',
-    cast=lambda v: [d for d in [s.strip() for s in v.split(' ')] if d],
-    default='',
-)
+
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
+   
+   
+
 
 
 # EMAIL CONFIGURATION - Anymail with Mailgun
@@ -46,11 +46,11 @@ ALLOWED_HOSTS = config(
 # https://docs.djangoproject.com/en/1.10/topics/email/
 # https://github.com/anymail/django-anymail
 
-INSTALLED_APPS += ('anymail', )
 
-ANYMAIL = {
-    'MAILGUN_API_KEY': env('MAILGUN_API_KEY'),
-}
+
+
+
+
 
 
 # LOGGING CONFIGURATION
