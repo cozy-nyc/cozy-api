@@ -52,6 +52,7 @@ class Category(models.Model):
 
 
 
+'''
 class SubCategory(models.Model):
     """
         This is a model for a list of clothing sub-categories that are either
@@ -92,7 +93,7 @@ class SubCategory(models.Model):
         verbose_name = 'subcategory'
         verbose_name_plural = 'subcategories'
 
-
+'''
 
 # Needs to be moved to profile
 # class Brand(models.Model):
@@ -134,7 +135,7 @@ class Item(models.Model):
     material = models.TextField(blank=True)
     # related_name may not be needed. Research!!!
     category = models.ForeignKey(Category, related_name='Item', on_delete=models.CASCADE)
-    subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    #subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     location = models.CharField(max_length = 50)
     price = models.DecimalField(
         default=1.00,

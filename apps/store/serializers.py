@@ -6,7 +6,7 @@ from rest_framework.serializers import (
     RelatedField,
     ReadOnlyField,
     )
-from apps.store.models import Category, SubCategory, Item, Transaction
+from apps.store.models import Category, Item, Transaction #SubCategory
 
 
 #------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class CategoryDetailSerializer(ModelSerializer):
 #subCategory
 #------------------------------------------------------------------------------
 
-
+'''
 class SubCategoryCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = SubCategory
@@ -79,7 +79,7 @@ class SubCategoryListSerializer(ModelSerializer):
             'name',
             'parent',
         ]
-
+'''
 
 #------------------------------------------------------------------------------
 #Items
@@ -96,7 +96,7 @@ class ItemCreateUpdateSerializer(ModelSerializer):
             'description',
             'material',
             'category',
-            'subCategory',
+            #'subCategory',
             'image'
         ]
 
@@ -104,7 +104,7 @@ class ItemDetailSeralizer(ModelSerializer):
     class Meta:
         listings = StringRelatedField(many = True)
         category = CategoryDetailSerializer(read_only = True)
-        subCatergory = SubCategoryDetailSerializer(read_only = True)
+        #subCatergory = SubCategoryDetailSerializer(read_only = True)
         image = SerializerMethodField()
         model = Item
         fields = [
@@ -116,8 +116,8 @@ class ItemDetailSeralizer(ModelSerializer):
             'material',
             'category',
             'category_name',
-            'subCategory',
-            'subCategory_name',
+            #'subCategory',
+            #'subCategory_name',
             'price',
             'lastActive',
             'visible',
@@ -134,7 +134,7 @@ class ItemDetailSeralizer(ModelSerializer):
 class ItemListlSeralizer(ModelSerializer):
     class Meta:
         category = CategoryDetailSerializer(read_only = True)
-        subCatergory = SubCategoryDetailSerializer(read_only = True)
+        #subCatergory = SubCategoryDetailSerializer(read_only = True)
         image = SerializerMethodField()
 
         model = Item
@@ -145,8 +145,8 @@ class ItemListlSeralizer(ModelSerializer):
             'image',
             'category',
             'category_name',
-            'subCategory',
-            'subCategory_name',
+            #'subCategory',
+            #'subCategory_name',
             'lastActive',
             'visible',
             'stock',
