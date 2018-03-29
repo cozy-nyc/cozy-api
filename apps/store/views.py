@@ -53,7 +53,7 @@ class CategoryDetail(RetrieveAPIView):
 #------------------------------------------------------------------------------
 
 
-
+'''
 class SubCategoryCreate(CreateAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategoryCreateUpdateSerializer
@@ -71,7 +71,7 @@ class SubCategoryDetial(RetrieveAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategoryDetailSerializer
     permission_classes = [AllowAny]
-
+'''
 #------------------------------------------------------------------------------
 #Items
 #------------------------------------------------------------------------------
