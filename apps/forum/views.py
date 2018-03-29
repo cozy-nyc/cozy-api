@@ -80,7 +80,7 @@ class ThreadCreate(CreateAPIView):
     """
     queryset = Thread.objects.all()
     serializer_class = ThreadCreateUpdateSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 class ThreadDetail(RetrieveAPIView):
@@ -130,7 +130,7 @@ class PostCreate(CreateAPIView):
     """
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 class PostList(ListAPIView):
     """

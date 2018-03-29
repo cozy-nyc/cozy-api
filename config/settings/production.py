@@ -37,6 +37,12 @@ INSTALLED_APPS += ('gunicorn', )
 
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
+   
+   
+
+
+
+
 
 
 
@@ -44,6 +50,14 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/1.10/topics/email/
 # https://github.com/anymail/django-anymail
+
+
+
+
+
+
+
+
 
 
 
