@@ -12,50 +12,9 @@ from rest_framework.serializers import(
 
 from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
-from .models import Stream, Profile, Note
-
-class NoteCreateUpdateSerializer(ModelSerializer):
-    class Meta:
-        model = Note
-        fields = [
-            'title',
-            'description',
-            'uploader',
-            'service',
-            'link',
-            'noteType'
-        ]
-
-class NoteDetailSerialzer(ModelSerializer):
-    name = ReadOnlyField()
-    class Meta:
-        model = Note
-        fields = [
-            'id',
-            'title',
-            'description',
-            'name',
-            'uploader',
-            'service',
-            'link',
-            'noteType'
-        ]
-
-class NoteListSerializer(ModelSerializer):
-    name = ReadOnlyField()
-    class Meta:
-        model = Note
-        fields = [
-            'id',
-            'title',
-            'uploader',
-            'name',
-            'service',
-            'noteType'
-        ]
-
+from .models import Stream
 
 class StreamCreateUpdateSerializer(ModelSerializer):
     class Meta:
@@ -69,7 +28,7 @@ class StreamCreateUpdateSerializer(ModelSerializer):
         ]
 
 class StreamDetailSerializer(ModelSerializer):
-    streamer = ProfileDetailSerializer(read_only = True)
+    # streamer = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Stream
         fields = [
@@ -85,7 +44,7 @@ class StreamDetailSerializer(ModelSerializer):
         ]
 
 class StreamListSerializer(ModelSerializer):
-    streamer = ProfileDetailSerializer(read_only = True)
+    # streamer = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Stream
         fields = [
