@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/cozy-nyc/cozy-nyc-backend.svg?branch=master&style=flat-square)](https://travis-ci.org/cozy-nyc/cozy-nyc-backend)
 
 ### Join Our Discord
-*_Discord_* - https://discord.gg/3WSA2SG
+__Discord__ - https://discord.gg/3WSA2SG
 
 ## Requirements
 * Python 3.5 or higher
