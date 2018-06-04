@@ -12,7 +12,7 @@ from rest_framework.serializers import (
 from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from apps.accounts.models import Profile, Clan, ProfileImg
+from apps.accounts.models import Profile
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -21,3 +21,11 @@ class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(Item, ItemAdmin)
+
+class ImageAdmin(admin.ModelAdmin):
+    """
+    """
+    list_display = ['item_name']
+    List_filter = ['item_name']
+
+admin.site.register(ItemImage, ImageAdmin)

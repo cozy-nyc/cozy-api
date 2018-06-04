@@ -127,7 +127,6 @@ class Item(models.Model):
     """
     name = models.CharField(max_length=200, db_index=True, unique = True)
     slug = models.SlugField(max_length=200, db_index=True)
-    image = models.ImageField()
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # brand = models.ForeignKey(Brand)
     description = models.TextField(blank=True)
@@ -170,9 +169,6 @@ class Item(models.Model):
     def category_name(self):
         return self.category.name
 
-    @property
-    def subCategory_name(self):
-        return self.subCategory.name
 
     def __str__(self):
         return self.name
@@ -188,7 +184,13 @@ class Item(models.Model):
     def __unicode__(self):
         return ('%d: %s' (self.id, self.name))
 
+class ItemImage(models.Model):
+    item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to = 'itemImages/')
 
+    @property
+    def item_name(self):
+        return self.item.name
 
 # Add a save to transactions
 class Transaction(models.Model):
