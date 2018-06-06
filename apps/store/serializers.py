@@ -6,7 +6,7 @@ from rest_framework.serializers import (
     RelatedField,
     ReadOnlyField,
     )
-from apps.store.models import Category, Item, Transaction #SubCategory
+from apps.store.models import Category, Item, Transaction, ItemImage
 
 
 #------------------------------------------------------------------------------
@@ -84,8 +84,33 @@ class SubCategoryListSerializer(ModelSerializer):
 #------------------------------------------------------------------------------
 #Items
 #------------------------------------------------------------------------------
+class ItemImageDetailSerializer(ModelSerializer):
+    class Meta:
+        model = ItemImage 
+        image = SerializerMethodField()
+        fields = [
+            'id',
+            'item',
+            'item_name',
+            'image'
+        ]
 
+        def get_image(self,obj):
+            try:
+                image = obj.image.url
+            except:
+                image = None
+            return image
 
+class ItemImageSerializer(ModelSerializer):
+    class Meta:
+        model = ItemImage
+        image = SerializerMethodField()
+        fields = [
+            'id',
+            'image',
+            'item'
+        ]
 
 class ItemCreateUpdateSerializer(ModelSerializer):
 
@@ -96,68 +121,54 @@ class ItemCreateUpdateSerializer(ModelSerializer):
             'description',
             'material',
             'category',
-            #'subCategory',
-            'image'
         ]
 
 class ItemDetailSeralizer(ModelSerializer):
+    images = ItemImageDetailSerializer(many = True, read_only = True)
     class Meta:
         listings = StringRelatedField(many = True)
         category = CategoryDetailSerializer(read_only = True)
-        #subCatergory = SubCategoryDetailSerializer(read_only = True)
-        image = SerializerMethodField()
         model = Item
         fields = [
             'id',
             'slug',
+            'seller_name',
             'name',
-            'image',
+            'images',
             'description',
             'material',
             'category',
             'category_name',
-            #'subCategory',
-            #'subCategory_name',
             'price',
             'lastActive',
             'visible',
             'stock',
         ]
 
-        def get_image(self,obj):
-            try:
-                image = obj.image.url
-            except:
-                image = None
-            return image
+  
 
 class ItemListlSeralizer(ModelSerializer):
+    images = ItemImageDetailSerializer(many = True, read_only = True)
     class Meta:
         category = CategoryDetailSerializer(read_only = True)
-        #subCatergory = SubCategoryDetailSerializer(read_only = True)
-        image = SerializerMethodField()
-
         model = Item
         fields = [
             'id',
             'slug',
             'name',
-            'image',
+            'seller_name',
+            'images',
             'category',
             'category_name',
-            #'subCategory',
-            #'subCategory_name',
             'lastActive',
             'visible',
             'stock',
             'price',
         ]
-        def get_image(self,obj):
-            try:
-                image = obj.image.url
-            except:
-                image = None
-            return image
+
+
+
+
 #------------------------------------------------------------------------------
 #Listing
 #------------------------------------------------------------------------------

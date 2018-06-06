@@ -131,8 +131,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now = True)
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
     thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE)
-    image = models.ImageField(max_length = 255,
-                              upload_to='uploads/forum/post',
+    image = models.ImageField(upload_to='postImages/',
                               blank=True,
                               default='',
                               null=True)
