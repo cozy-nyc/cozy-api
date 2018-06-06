@@ -89,6 +89,7 @@ class ItemImageDetailSerializer(ModelSerializer):
         model = ItemImage 
         image = SerializerMethodField()
         fields = [
+            'id',
             'item',
             'item_name',
             'image'
@@ -101,6 +102,15 @@ class ItemImageDetailSerializer(ModelSerializer):
                 image = None
             return image
 
+class ItemImageSerializer(ModelSerializer):
+    class Meta:
+        model = ItemImage
+        image = SerializerMethodField()
+        fields = [
+            'id',
+            'image',
+            'item'
+        ]
 
 class ItemCreateUpdateSerializer(ModelSerializer):
 
@@ -122,6 +132,7 @@ class ItemDetailSeralizer(ModelSerializer):
         fields = [
             'id',
             'slug',
+            'seller_name',
             'name',
             'images',
             'description',
@@ -145,6 +156,7 @@ class ItemListlSeralizer(ModelSerializer):
             'id',
             'slug',
             'name',
+            'seller_name',
             'images',
             'category',
             'category_name',

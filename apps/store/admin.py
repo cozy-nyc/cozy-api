@@ -14,6 +14,7 @@ admin.site.register(Category, CategoryAdmin)
 
 class ItemAdmin(admin.ModelAdmin):
     """
+    
     """
     list_display = ['name','slug', 'price',]
     list_filter = ['category']
