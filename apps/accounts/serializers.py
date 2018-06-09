@@ -12,7 +12,7 @@ from rest_framework.serializers import (
 from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from apps.accounts.models import Profile, Clan, ProfileImg
+from apps.accounts.models import Profile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,7 +42,6 @@ class ProfileCreateUpdateSerializer(ModelSerializer):
         model = Profile
         fields = [
             'user',
-            'clan',
             'profileImg',
             'location'
         ]
@@ -54,7 +53,6 @@ class ProfileDetailSerializer(ModelSerializer):
         fields = [
             'id',
             'name',
-            'clan',
             'image',
             'location'
         ]
@@ -71,8 +69,7 @@ class ProfileListSerializer(ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'name'
-            'clan',
+            'name',
             'image'
         ]
 

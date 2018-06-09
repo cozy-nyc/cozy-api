@@ -65,7 +65,7 @@ class ThreadCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Thread
         fields = [
-            'title',
+            'title', 
             'board',
             'image'
         ]

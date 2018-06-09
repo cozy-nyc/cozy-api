@@ -6,6 +6,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from .manager import CategoryManager, ItemManager, TransactionManager
 from django.db.models.signals import post_save
 import datetime
+import uuid
 
 
 class Category(models.Model):
@@ -68,7 +69,6 @@ class Item(models.Model):
     """
     name = models.CharField(max_length=200, db_index=True, unique = True)
     slug = models.SlugField(max_length=200, db_index=True)
-    image = models.ImageField()
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     material = models.TextField(blank=True)
@@ -106,6 +106,10 @@ class Item(models.Model):
     def category_name(self):
         return self.category.name
 
+    @property
+    def seller_name(self):
+        return self.seller.username
+
     def __str__(self):
         return self.name
 
@@ -120,7 +124,17 @@ class Item(models.Model):
     def __unicode__(self):
         return ('%d: %s' (self.id, self.name))
 
+def scramble_uploaded_filename(instance, filename):
+    extension = filename.split(".")[-1]
+    return "{}.{}".format(uuid.uuid4(), extension)
 
+class ItemImage(models.Model):
+    item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to = scramble_uploaded_filename)
+
+    @property
+    def item_name(self):
+        return self.item.name
 
 # Add a save to transactions
 class Transaction(models.Model):
