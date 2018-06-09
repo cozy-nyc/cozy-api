@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Category, SubCategory, Item, Listing, Transaction
+from .models import Category, Item, Listing, Transaction
 from django.contrib.auth.models import User
 
 

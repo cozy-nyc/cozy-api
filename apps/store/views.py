@@ -51,30 +51,6 @@ class CategoryDetail(RetrieveAPIView):
 
 
 #------------------------------------------------------------------------------
-#subCategory
-#------------------------------------------------------------------------------
-
-
-'''
-class SubCategoryCreate(CreateAPIView):
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategoryCreateUpdateSerializer
-    permission_classes = [IsAdminUser]
-
-
-
-class SubCategoryList(ListAPIView):
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategoryListSerializer
-    permission_classes = [AllowAny]
-
-
-class SubCategoryDetial(RetrieveAPIView):
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategoryDetailSerializer
-    permission_classes = [AllowAny]
-'''
-#------------------------------------------------------------------------------
 #Items
 #------------------------------------------------------------------------------
 
@@ -113,7 +89,7 @@ class ItemList(ListAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemListlSeralizer
     filter_backends = (DjangoFilterBackend,)
-    search_fields = ['name', 'category', 'subCatergory' , 'description']
+    search_fields = ['name', 'category', 'description']
     permission_classes = [AllowAny]
 
     def get_queryset(self, *args, **kwargs):

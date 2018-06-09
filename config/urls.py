@@ -30,6 +30,7 @@ from django.apps import apps
 forum_name = apps.get_app_config('forum').verbose_name
 store_name = apps.get_app_config('store').verbose_name
 accounts_name = apps.get_app_config('accounts').verbose_name
+stream_name = apps.get_app_config('stream').verbose_name
 
 from apps.forum import views as forum_views
 
@@ -40,6 +41,7 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
+    url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),
     url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),
 ]
 if settings.DEBUG:

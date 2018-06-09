@@ -9,6 +9,7 @@ from rest_framework.serializers import (
 from apps.store.models import Category, Item, Transaction, ItemImage
 
 
+
 #------------------------------------------------------------------------------
 #Category
 #------------------------------------------------------------------------------
@@ -45,41 +46,6 @@ class CategoryDetailSerializer(ModelSerializer):
             'slug'
         ]
         'name'
-
-#------------------------------------------------------------------------------
-#subCategory
-#------------------------------------------------------------------------------
-
-'''
-class SubCategoryCreateUpdateSerializer(ModelSerializer):
-    class Meta:
-        model = SubCategory
-        fields = [
-            'name',
-            'parent',
-        ]
-
-
-class SubCategoryDetailSerializer(ModelSerializer):
-
-    class Meta:
-        model = SubCategory
-        fields = [
-            'id',
-            'name',
-            'parent',
-        ]
-
-class SubCategoryListSerializer(ModelSerializer):
-
-    class Meta:
-        model = SubCategory
-        fields = [
-            'id',
-            'name',
-            'parent',
-        ]
-'''
 
 #------------------------------------------------------------------------------
 #Items
@@ -121,6 +87,7 @@ class ItemCreateUpdateSerializer(ModelSerializer):
             'description',
             'material',
             'category',
+            'image'
         ]
 
 class ItemDetailSeralizer(ModelSerializer):
@@ -128,6 +95,7 @@ class ItemDetailSeralizer(ModelSerializer):
     class Meta:
         listings = StringRelatedField(many = True)
         category = CategoryDetailSerializer(read_only = True)
+        image = SerializerMethodField()
         model = Item
         fields = [
             'id',
@@ -151,6 +119,7 @@ class ItemListlSeralizer(ModelSerializer):
     images = ItemImageDetailSerializer(many = True, read_only = True)
     class Meta:
         category = CategoryDetailSerializer(read_only = True)
+        image = SerializerMethodField()
         model = Item
         fields = [
             'id',
