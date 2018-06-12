@@ -194,11 +194,15 @@ def scramble_uploaded_filename(instance, filename):
 
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to = scramble_uploaded_filename)
-
-    @property
-    def item_name(self):
-        return self.item.name
+    url = models.ImageField(upload_to = scramble_uploaded_filename)
+    index = models.IntegerField(default = 1)
+    '''
+    def save(self, **kwargs):
+        if not self.pk:
+            self.index = self.item.images
+        
+        super(ItemImage, self).save(**kwargs)
+    '''
 
 # Add a save to transactions
 class Transaction(models.Model):

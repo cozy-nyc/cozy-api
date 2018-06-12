@@ -26,7 +26,7 @@ admin.site.register(Item, ItemAdmin)
 class ImageAdmin(admin.ModelAdmin):
     """
     """
-    list_display = ['item_name']
-    List_filter = ['item_name']
+    list_display = ['id']
+    List_filter = ['id']
 
 admin.site.register(ItemImage, ImageAdmin)
