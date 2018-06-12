@@ -53,28 +53,27 @@ class CategoryDetailSerializer(ModelSerializer):
 class ItemImageDetailSerializer(ModelSerializer):
     class Meta:
         model = ItemImage 
-        image = SerializerMethodField()
+        url = SerializerMethodField()
         fields = [
             'id',
-            'item',
-            'item_name',
-            'image'
+            'url',
+            'index'
         ]
 
         def get_image(self,obj):
             try:
-                image = obj.image.url
+                url = obj.url.url
             except:
-                image = None
-            return image
+                url = None
+            return url
 
 class ItemImageSerializer(ModelSerializer):
     class Meta:
         model = ItemImage
-        image = SerializerMethodField()
+        url = SerializerMethodField()
         fields = [
             'id',
-            'image',
+            'url',
             'item'
         ]
 
