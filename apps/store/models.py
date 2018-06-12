@@ -7,7 +7,7 @@ from .manager import CategoryManager, SubCatergoryManager, ItemManager, Transact
 from django.db.models.signals import post_save
 import datetime
 import uuid
-
+from django.db.models.signals import post_save
 
 class Category(models.Model):
     """
@@ -149,6 +149,7 @@ class Item(models.Model):
             default = 0
     )
     objects = ItemManager()
+    imageCount = models.IntegerField(default = 0)
 
     def save(self, **kwargs):
         """
@@ -195,15 +196,20 @@ def scramble_uploaded_filename(instance, filename):
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
     url = models.ImageField(upload_to = scramble_uploaded_filename)
-    index = models.IntegerField(default = 1)
-    '''
+    index = models.IntegerField(default = 0)
+    
+
     def save(self, **kwargs):
         if not self.pk:
-            self.index = self.item.images
+            self.index = self.item.imageCount + 1
+            self.item.imageCount += 1
+            self.item.save()
         
         super(ItemImage, self).save(**kwargs)
-    '''
 
+
+    
+  
 # Add a save to transactions
 class Transaction(models.Model):
     """
