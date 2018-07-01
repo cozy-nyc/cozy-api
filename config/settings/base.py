@@ -189,6 +189,7 @@ REST_USE_JWT = True
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_ALLOW_REFRESH': True,
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.accounts.utils.jwt_response_payload_handler'
 }
 
 # EMAIL CONFIGURATION
