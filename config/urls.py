@@ -26,6 +26,7 @@ from django.conf.urls.static import static
 
 from . import views
 from django.apps import apps
+from .views import CustomObtainAuthToken
 
 forum_name = apps.get_app_config('forum').verbose_name
 store_name = apps.get_app_config('store').verbose_name
@@ -35,9 +36,11 @@ from apps.forum import views as forum_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api-token-refresh/', refresh_jwt_token),
     url(r'^api-token-verify/', verify_jwt_token),
+    url(r'^authenticate/', CustomObtainAuthToken.as_view()),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
     url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),
