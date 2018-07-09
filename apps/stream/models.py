@@ -7,8 +7,6 @@ from apps.accounts.models import Profile
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-
-
 # Create your models here.
 
 class Stream(models.Model):
@@ -39,13 +37,3 @@ class Stream(models.Model):
     @property
     def streamer_name(self):
         return self.profile.username
-
-
-
-@receiver(post_save, sender = Profile)
-def create_profile_for_new_user(sender, created, instance, **kwargs):
-    if created:
-        stream = Stream()
-        stream.save()
-        profile = Profile(profile = instance, stream = stream)
-        profile.save()
