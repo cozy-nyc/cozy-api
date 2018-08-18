@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .manager import CategoryManager, SubCatergoryManager, ItemManager, TransactionManager
+from .manager import CategoryManager, ItemManager, TransactionManager
 from django.db.models.signals import post_save
 import datetime
 import uuid
@@ -51,63 +51,6 @@ class Category(models.Model):
         super(Category, self).save(**kwargs)
 
 
-
-
-'''
-class SubCategory(models.Model):
-    """
-        This is a model for a list of clothing sub-categories that are either
-        predetermind or user input.
-
-        Attributes:
-            name: A string of the name of a sub-category
-            parent: foreign key to the Category. the class SubCategory is a
-            child to category.
-    """
-    name = models.CharField(max_length=16)
-    slug = models.SlugField(max_length = 16)
-    parent = models.ForeignKey(Category, related_name = 'subCats', on_delete=models.CASCADE)
-    objects = SubCatergoryManager()
-
-
-    def __str__(self):
-        return self.name
-
-    def save(self, **kwargs):
-        """
-            This function is an override of the save function so that the subCategory object
-            will be automiatcally updated everytime there is  achange within the item
-
-            Args:
-                self: current instance of that object
-        """
-        if not self.pk:
-            slug = self.name
-            slug = slug.lower()
-            slug = slug.replace(" ","-")
-            self.slug = slug
-
-        super(SubCategory, self).save(**kwargs)
-
-    class Meta:
-        ordering = ('name',)
-        verbose_name = 'subcategory'
-        verbose_name_plural = 'subcategories'
-
-'''
-
-# Needs to be moved to profile
-# class Brand(models.Model):
-#     name = models.CharField(max_length=32)
-#     description = models.TextField(blank=True)
-#     location = models.CharField(max_length = 50)
-#     owner = models.ForeignKey('profiles.Profile')
-#     email = models.EmailField(blank=True)
-#
-#     def _str_(self):
-#         return self.name
-
-
 class Item(models.Model):
     """
         This is a model for items sold on the exchange.
@@ -118,8 +61,6 @@ class Item(models.Model):
             description: A string which should describe the item for the users
             material: A string which should identify the materials used to make the item
             category: A foregin key to category to make items more organized
-            subCategory: A foregin key to subCatergory to make our items even more organized
-            avgSoldPrice: A number which will go through all items to achieve the avgSoldPrice
             lastActive: A date and time which represent when the last time the item has been edited
             available: A boolean which represents whether there are items avialble or not
             created = The date and time field that the item was created
@@ -129,14 +70,9 @@ class Item(models.Model):
     name = models.CharField(max_length=200, db_index=True, unique = True)
     slug = models.SlugField(max_length=200, db_index=True)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # brand = models.ForeignKey(Brand)
     description = models.TextField(blank=True)
-    #Change to location model
     material = models.TextField(blank=True)
-    # related_name may not be needed. Research!!!
     category = models.ForeignKey(Category, related_name='Item', on_delete=models.CASCADE)
-    #subCategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
-    location = models.CharField(max_length = 50)
     price = models.DecimalField(
         default=1.00,
         validators=[MinValueValidator(1.0)],
@@ -146,7 +82,7 @@ class Item(models.Model):
     lastActive = models.DateTimeField(default = timezone.now)
     visible = models.BooleanField(default = True)
     stock = models.PositiveIntegerField(
-            default = 0
+            default = 1
     )
     objects = ItemManager()
     imageCount = models.IntegerField(default = 0)

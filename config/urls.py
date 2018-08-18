@@ -23,14 +23,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.apps import apps
 
-
-'''
-from . import views
-from .views import CustomObtainAuthToken
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
-from django.contrib.auth import views as auth_views
-'''
-
 forum_name = apps.get_app_config('forum').verbose_name
 store_name = apps.get_app_config('store').verbose_name
 accounts_name = apps.get_app_config('accounts').verbose_name
@@ -43,6 +35,7 @@ urlpatterns = [
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
+    url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),
     url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),
 ]
 if settings.DEBUG:

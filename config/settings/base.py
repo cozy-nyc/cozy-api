@@ -25,7 +25,7 @@ environ.Env.read_env(env_file=base('.env'))
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'apps.stream',
     'apps.forum',
     'apps.store',
-    'apps.accounts'
+    'apps.accounts',
+    'apps.stream',
 ]
 
 MIDDLEWARE = [
@@ -189,6 +190,7 @@ REST_USE_JWT = True
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_ALLOW_REFRESH': True,
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.accounts.utils.jwt_response_payload_handler'
 }
 
 # EMAIL CONFIGURATION

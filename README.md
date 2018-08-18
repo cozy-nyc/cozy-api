@@ -1,4 +1,8 @@
 # cozy.nyc backend
+[![Build Status](https://travis-ci.org/cozy-nyc/cozy-nyc-backend.svg?branch=master&style=flat-square)](https://travis-ci.org/cozy-nyc/cozy-nyc-backend)
+
+### Join Our Discord
+__Discord__ - https://discord.gg/3WSA2SG
 
 ## Requirements
 * Python 3.5 or higher
@@ -12,28 +16,29 @@ DEBUG=true
 SECRET_KEY=[secret-key]
 DJANGO_SETTINGS_MODULE=django_config.settings.local
 ALLOWED_HOSTS=localhost,127.0.0.1, 0.0.0.0
-DATABASE_URL=postgres://dev:tester321@localhost:5432/exchange
+DATABASE_URL=postgres://[user]:[password]@[ip or localhost]:5432/[database]
 
 MAILGUN_API_KEY=[mailgun-api-key]
 MAILGUN_DEFAULT_FROM_EMAIL=[email]
 
-POSTGRES_PASSWORD=tester321
-POSTGRES_USER=dev
-POSTGRES_DB=exchange
+POSTGRES_PASSWORD=[password]
+POSTGRES_USER=[user]
+POSTGRES_DB=[database]
 
 EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST=smtp.domain.com
-EMAIL_HOST_USER=email@cozy.nyc
-EMAIL_HOST_PASSWORD=password
+EMAIL_HOST_USER=[email]
+EMAIL_HOST_PASSWORD=[password]
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-DEFAULT_FROM_EMAIL=default@cozy.nyc
-
+DEFAULT_FROM_EMAIL=[default email]
 ```
+
 2. In the requirements folder run
 ```
 pip install -r local.txt
 ```
+
 3. Run basic django commands such as
 ```
 python manage.py makemigrations

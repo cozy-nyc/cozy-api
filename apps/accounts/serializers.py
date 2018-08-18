@@ -39,6 +39,20 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'password')
 
+class UserDetailSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+            required=True,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+    username = serializers.CharField(
+            max_length=32,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email')
+
 
 class ProfileCreateUpdateSerializer(ModelSerializer):
     class Meta:
@@ -62,11 +76,11 @@ class ProfileDetailSerializer(ModelSerializer):
 
         def get_image(self,obj):
             try:
-                image = obj.image.url 
+                image = obj.image.url
             except:
                 image = None
             return image
-            
+
 class ProfileListSerializer(ModelSerializer):
     name = ReadOnlyField()
     class Meta:
@@ -82,4 +96,3 @@ class ProfileListSerializer(ModelSerializer):
             except:
                 image = None
             return image
-
