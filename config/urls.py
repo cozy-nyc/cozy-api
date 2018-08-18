@@ -33,7 +33,6 @@ from apps.forum import views as forum_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
-    url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
     url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),
     url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),

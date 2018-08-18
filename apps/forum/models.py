@@ -147,6 +147,6 @@ class Post(models.Model):
             self.thread.replyCount = self.thread.replyCount + 1
             self.thread.save()
 
-        if not self.thread:
+        #if not self.thread:
 
         super(Post, self).save(**kwargs)

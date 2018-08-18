@@ -61,8 +61,7 @@ INSTALLED_APPS = [
     'apps.stream',
     'apps.forum',
     'apps.store',
-    'apps.accounts',
-    'apps.stream',
+    'apps.accounts'
 ]
 
 MIDDLEWARE = [
