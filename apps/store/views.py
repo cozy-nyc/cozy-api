@@ -1,3 +1,4 @@
+
 from django.db.models import Q
 
 from rest_framework.filters import (
@@ -81,6 +82,7 @@ class SubCategoryDetial(RetrieveAPIView):
 class ItemImageViewset(viewsets.ModelViewSet):
     queryset = ItemImage.objects.all()
     serializer_class = ItemImageSerializer
+    permission_classes = [AllowAny]
 
 class ItemCreate(CreateAPIView):
     queryset = Item.objects.all()

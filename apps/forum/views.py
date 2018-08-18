@@ -41,6 +41,8 @@ class BoardList(ListAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardListSerializer
     permission_classes = [AllowAny]
+    search_fields = ('name')
+
 
 class BoardDetail(RetrieveAPIView):
     """
@@ -116,7 +118,7 @@ class ThreadList(ListAPIView):
     serializer_class = ThreadListSerializer
     permission_classes = [AllowAny]
     filter_backends = (DjangoFilterBackend,)
-    search_fields = ['title']
+    search_fields = ('title', 'poster')
 
 
 class PostCreate(CreateAPIView):
@@ -144,6 +146,8 @@ class PostList(ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
+    search_fields = ('message', 'poster')
+
 
 class PostDetail(RetrieveAPIView):
     """

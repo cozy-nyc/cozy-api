@@ -77,10 +77,6 @@ class Thread(models.Model):
     @property
     def image(self):
         return self.posts.order_by('created').first().image
-    
-    @property
-    def latestReply(self):
-        return self.posts.order_by('created').last()
 
     @property
     def blurb(self):
@@ -94,7 +90,7 @@ class Thread(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['created']
+        ordering = ['created'] 
         verbose_name = 'thread'
         verbose_name_plural = 'threads'
     
@@ -127,6 +123,7 @@ class Post(models.Model):
             thread: a foreign key to a thread object where the post has been made
             image: an imagefield for posts.
     """
+    title = models.TextField(default = '')
     message = models.TextField(default = '')
     created = models.DateTimeField(auto_now = True)
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -139,6 +136,7 @@ class Post(models.Model):
     def __str__(self):
        return self.message
 
+
     class Meta:
         ordering = ['created']
         verbose_name = 'post'
@@ -148,5 +146,7 @@ class Post(models.Model):
         if not self.pk:
             self.thread.replyCount = self.thread.replyCount + 1
             self.thread.save()
+
+        if not self.thread:
 
         super(Post, self).save(**kwargs)
