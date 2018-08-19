@@ -114,11 +114,13 @@ class ThreadList(ListAPIView):
             filter_backends:
             search_fields:
     """
-    queryset = Thread.objects.all()
+    queryset = Thread.objects.all().order_by('-latestReplyTime')
     serializer_class = ThreadListSerializer
     permission_classes = [AllowAny]
     filter_backends = (DjangoFilterBackend,)
-    search_fields = ('title', 'poster')
+    search_fields = ('title', 'poster', 'board')
+    ordering_fields = ('created', 'latestReplyTime')
+
 
 
 class PostCreate(CreateAPIView):
@@ -143,7 +145,7 @@ class PostList(ListAPIView):
             serializer_class:
             perrission_classes:
     """
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-created')
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
     search_fields = ('message', 'poster')

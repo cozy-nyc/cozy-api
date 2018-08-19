@@ -27,7 +27,7 @@ class Board(models.Model):
 
     class Meta:
         ordering = ('name',)
-        verbose_name = 'board' 
+        verbose_name = 'board'
         verbose_name_plural = 'boards'
 
     @property
@@ -90,10 +90,10 @@ class Thread(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['created'] 
+        ordering = ['created']
         verbose_name = 'thread'
         verbose_name_plural = 'threads'
-    
+
 
 
     def save(self, **kwargs):
@@ -123,11 +123,12 @@ class Post(models.Model):
             thread: a foreign key to a thread object where the post has been made
             image: an imagefield for posts.
     """
-    title = models.TextField(default = '')
+    title = models.TextField(default = '', blank = True)
     message = models.TextField(default = '')
     created = models.DateTimeField(auto_now = True)
+    board = models.ForeignKey(Board, on_delete = models.CASCADE)
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE)
+    thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE, blank = True)
     image = models.ImageField(upload_to='postImages/',
                               blank=True,
                               default='',
@@ -144,9 +145,18 @@ class Post(models.Model):
 
     def save(self, **kwargs):
         if not self.pk:
-            self.thread.replyCount = self.thread.replyCount + 1
-            self.thread.save()
+            try:
+                self.thread.replyCount = self.thread.replyCount + 1
+                if self.image:
+                        self.thread.imageCount = self.thread.imageCount + 1
+                self.thread.save()
 
-        #if not self.thread:
+            except Thread.DoesNotExist:
+                newThread = Thread(title = self.title, board = self.board)
+                newThread.save()
+                self.thread = newThread
+                if self.image:
+                    self.thread.imageCount = self.thread.imageCount + 1
+                self.thread.save()
 
         super(Post, self).save(**kwargs)
