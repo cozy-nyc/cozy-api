@@ -69,6 +69,8 @@ class Thread(models.Model):
     views = models.PositiveIntegerField(default = 0)
     imageCount = models.PositiveIntegerField(default = 0)
     latestReplyTime = models.DateTimeField(auto_now = True)
+    poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
 
     @property
     def tag(self):
@@ -81,10 +83,7 @@ class Thread(models.Model):
     @property
     def blurb(self):
         return self.posts.order_by('created').first().message[:50]
-
-    @property
-    def poster(self):
-        return self.posts.order_by('created').first().poster.name
+    
 
     def __str__(self):
         return self.title
@@ -152,7 +151,7 @@ class Post(models.Model):
                 self.thread.save()
 
             except Thread.DoesNotExist:
-                newThread = Thread(title = self.title, board = self.board)
+                newThread = Thread(title = self.title, board = self.board, poster = self.poster)
                 newThread.save()
                 self.thread = newThread
                 if self.image:

@@ -41,7 +41,6 @@ class BoardList(ListAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardListSerializer
     permission_classes = [AllowAny]
-    search_fields = ('name')
 
 
 class BoardDetail(RetrieveAPIView):
@@ -117,9 +116,10 @@ class ThreadList(ListAPIView):
     queryset = Thread.objects.all().order_by('-latestReplyTime')
     serializer_class = ThreadListSerializer
     permission_classes = [AllowAny]
-    filter_backends = (DjangoFilterBackend,)
-    search_fields = ('title', 'poster', 'board')
-    ordering_fields = ('created', 'latestReplyTime')
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ['title', 'poster__user__username', 'board__name']
+    ordering_fields = ('latestReplyTime',)
+
 
 
 
@@ -148,7 +148,8 @@ class PostList(ListAPIView):
     queryset = Post.objects.all().order_by('-created')
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
-    search_fields = ('message', 'poster')
+    filter_backends = (SearchFilter,)
+    search_fields = ['message', 'poster__user__username']
 
 
 class PostDetail(RetrieveAPIView):
