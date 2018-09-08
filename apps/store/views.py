@@ -39,6 +39,9 @@ from .serializers import *
 
 
 class CategoryList(ListAPIView):
+    """
+        This view is for API get request for Category
+    """
     queryset = Category.objects.all()
     serializer_class = CategoryListSerializer
     permission_classes = [AllowAny]
@@ -46,6 +49,9 @@ class CategoryList(ListAPIView):
 
 
 class CategoryDetail(RetrieveAPIView):
+    """
+        This view is for API get request for Category
+    """
     queryset = Category.objects.all()
     serializer_class = CategoryDetailSerializer
     permission_classes = [AllowAny]
@@ -56,11 +62,17 @@ class CategoryDetail(RetrieveAPIView):
 #------------------------------------------------------------------------------
 
 class ItemImageViewset(viewsets.ModelViewSet):
+    """
+        This view is for API get request for Images attached to the Item.
+    """
     queryset = ItemImage.objects.all()
     serializer_class = ItemImageSerializer
     permission_classes = [AllowAny]
 
 class ItemCreate(CreateAPIView):
+    """
+        This view is for API post request for Items to be created
+    """
     queryset = Item.objects.all()
     serializer_class = ItemCreateUpdateSerializer
     permission_classes = [IsAuthenticated]
@@ -69,6 +81,10 @@ class ItemCreate(CreateAPIView):
         serializer.save()
 
 class ItemUpdate(RetrieveUpdateAPIView):
+    """
+        This view is for API post request for Items to be updated
+
+    """
     queryset = Item.objects.all()
     serializer_class = ItemCreateUpdateSerializer
     permission_classes = [IsAdminUser]
@@ -77,17 +93,27 @@ class ItemUpdate(RetrieveUpdateAPIView):
         serializer.save()
 
 class ItemDelete(DestroyAPIView):
+    """
+        This view is for API post request for Items to be deleted
+    """
     queryset = Item.objects.all()
     serializer_class =  ItemDetailSeralizer
     permission_classes = [IsAdminUser]
 
 
 class ItemDetail(RetrieveAPIView):
+    """
+        This view is for API get request for the details of an Item
+    """
     queryset = Item.objects.all()
     serializer_class = ItemDetailSeralizer
     permission_classes = [AllowAny]
 
 class ItemList(ListAPIView):
+    """
+        This view is for API get request for detail ItemList
+    """
+
     queryset = Item.objects.all()
     serializer_class = ItemListlSeralizer
     filter_backends = (SearchFilter,OrderingFilter)
@@ -156,6 +182,9 @@ class ItemList(ListAPIView):
 #------------------------------------------------------------------------------
 
 class TransactionCreate(CreateAPIView):
+    """
+        This view is for the API post request to create an Transaction
+    """
     queryset = Transaction.objects.all()
     serializer_class = TransactionCreateUpdateSerializer
     premission_classes = [IsAuthenticated]
@@ -164,12 +193,18 @@ class TransactionCreate(CreateAPIView):
     #def perform_create(self, serializer):
 
 class TransactionUpdate(RetrieveUpdateAPIView):
+    """
+        This view is for the API post request to update Transactions
+    """
     queryset = Transaction.objects.all()
     serializer_class = TransactionCreateUpdateSerializer
     permission_classes = [IsBuyerOrSeller, IsAdminUser]
 
 ##Need to add the query to this thing
 class TransactionList(ListAPIView):
+    """
+        This view is for the API get request to list out Transactions
+    """
     serializer_class = TransactionSerializer
     permission_classes = [IsAdminUser, IsAuthenticated]
 
@@ -182,6 +217,9 @@ class TransactionList(ListAPIView):
 
 
 class TransactionDetail(RetrieveAPIView):
+    """
+        This view is for the API get request for a detailed view of Transaction
+    """
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [IsBuyerOrSeller, IsAdminUser]
