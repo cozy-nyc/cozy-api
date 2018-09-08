@@ -65,7 +65,7 @@ class ThreadCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Thread
         fields = [
-            'title', 
+            'title',
             'board',
             'image'
         ]
@@ -73,6 +73,7 @@ class ThreadCreateUpdateSerializer(ModelSerializer):
 
 class ThreadDetailSerializer(ModelSerializer):
     posts = PostDetailSerializer(many = True, read_only = True)
+    poster = ProfileDetailSerializer(read_only = True)
     class Meta:
         image = SerializerMethodField()
         model = Thread
@@ -101,6 +102,8 @@ class ThreadDetailSerializer(ModelSerializer):
 
 class ThreadListSerializer(ModelSerializer):
     blurb = ReadOnlyField()
+    poster = ProfileDetailSerializer(read_only = True)
+
     class Meta:
         image = SerializerMethodField()
         model = Thread
@@ -113,7 +116,7 @@ class ThreadListSerializer(ModelSerializer):
             'imageCount',
             'created',
             'poster',
-            
+
         ]
 
         def get_image(self,obj):

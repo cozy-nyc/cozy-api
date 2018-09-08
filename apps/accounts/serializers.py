@@ -13,6 +13,9 @@ from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from apps.accounts.models import Profile
+from django.contrib.auth.models import User
+from rest_auth.models import TokenModel
+
 
 
 class UserSerializer(serializers.ModelSerializer):

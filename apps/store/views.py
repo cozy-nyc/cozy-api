@@ -1,3 +1,4 @@
+
 from django.db.models import Q
 
 from rest_framework.filters import (
@@ -9,7 +10,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework.response import Response
 
-from rest_framework import viewsets 
+from rest_framework import viewsets
 
 from rest_framework.generics import (
     CreateAPIView,
@@ -57,6 +58,7 @@ class CategoryDetail(RetrieveAPIView):
 class ItemImageViewset(viewsets.ModelViewSet):
     queryset = ItemImage.objects.all()
     serializer_class = ItemImageSerializer
+    permission_classes = [AllowAny]
 
 class ItemCreate(CreateAPIView):
     queryset = Item.objects.all()
@@ -88,20 +90,10 @@ class ItemDetail(RetrieveAPIView):
 class ItemList(ListAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemListlSeralizer
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (SearchFilter,OrderingFilter)
     search_fields = ['name', 'category', 'description']
+    ordering_fields = ('lastActive',)
     permission_classes = [AllowAny]
-
-    def get_queryset(self, *args, **kwargs):
-        queryset_list = Item.objects.all()
-        query = self.request.GET.get("q")
-        if query:
-            queryset_list = queryset_list.filter(
-                Q(name__icontains = query)|
-                Q(category__name__icontains = query)|
-                Q(description__icontains = query)
-            ).distinct()
-        return queryset_list
 
 
 #------------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
-from apps.accounts.models import Profile
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
@@ -26,14 +26,22 @@ class Stream(models.Model):
     live = models.BooleanField(default = False)
     featured = models.BooleanField(default = False)
     viewers = models.PositiveIntegerField(default = 0)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
     @property
     def streamer(self):
-        return self.profile
+        return self.user.profile
 
     @property
     def streamer_name(self):
-        return self.profile.username
+        return self.user.username
+
+@receiver(post_save, sender = User)
+def create_stream_for_new_profile(sender, created, instance, **kwargs):
+    if created:
+        stream = Stream(user=instance)
+        stream.save()
+

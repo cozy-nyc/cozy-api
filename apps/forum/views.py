@@ -42,6 +42,7 @@ class BoardList(ListAPIView):
     serializer_class = BoardListSerializer
     permission_classes = [AllowAny]
 
+
 class BoardDetail(RetrieveAPIView):
     """
         This view is for API get request for details of a board.
@@ -112,11 +113,14 @@ class ThreadList(ListAPIView):
             filter_backends:
             search_fields:
     """
-    queryset = Thread.objects.all()
+    queryset = Thread.objects.all().order_by('-latestReplyTime')
     serializer_class = ThreadListSerializer
     permission_classes = [AllowAny]
-    filter_backends = (DjangoFilterBackend,)
-    search_fields = ['title']
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ['title', 'poster__user__username', 'board__name']
+    ordering_fields = ('latestReplyTime',)
+
+
 
 
 class PostCreate(CreateAPIView):
@@ -141,9 +145,12 @@ class PostList(ListAPIView):
             serializer_class:
             perrission_classes:
     """
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-created')
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
+    filter_backends = (SearchFilter,)
+    search_fields = ['message', 'poster__user__username']
+
 
 class PostDetail(RetrieveAPIView):
     """
