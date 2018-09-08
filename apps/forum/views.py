@@ -34,9 +34,10 @@ class BoardList(ListAPIView):
         This view is for API get request for a list of boards.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query holding all of the Board objects.
+            serializer_class: Using the Board List Serializer
+            permission_classes: Anyone is allowed to access this call (even
+            users who have not signed up)
     """
     queryset = Board.objects.all()
     serializer_class = BoardListSerializer
@@ -48,9 +49,11 @@ class BoardDetail(RetrieveAPIView):
         This view is for API get request for details of a board.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query holding all of the Board objects
+            serializer_class: Using the Board Detail Serializer for more detailed
+            information
+            permission_classes: Anyone is allowed to access this call (even
+            users who have not signed up)
     """
     queryset = Board.objects.all()
     serializer_class = BoardDetailSerializer
@@ -62,9 +65,11 @@ class BoardCreate(CreateAPIView):
         This view is for API post request to create a board.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query holds all of the Board Objects
+            serializer_class: Using the Board Create Update Serializer in order
+            to create and update specific information
+            permission_classes: Only admin users are allowed to create and make
+            edits to existing boards.
     """
     queryset = Board.objects.all()
     serializer_class = BoardCreateUpdateSerializer
@@ -75,9 +80,11 @@ class ThreadCreate(CreateAPIView):
         This view is for API post request to create a thread.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query holds all of the Thread Objects
+            serializer_class: The Thread create serializer is used so users can
+            create thread.
+            permission_classes: Only authenticated users are allowed to create
+            threads.
     """
     queryset = Thread.objects.all()
     serializer_class = ThreadCreateUpdateSerializer
@@ -89,9 +96,10 @@ class ThreadDetail(RetrieveAPIView):
         This view is for API get request for details of a thread.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query holds all of the Thread Detail
+            serializer_class: The Thread deteail serializer is used.
+            permission_classes: Anyone is allowed to call ThreadDetails even
+            those who are not authenticated users
     """
     queryset = Thread.objects.all()
     serializer_class = ThreadDetailSerializer
@@ -107,11 +115,16 @@ class ThreadList(ListAPIView):
                 board" - Rantahu
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
-            filter_backends:
-            search_fields:
+            queryset: Query that holds all Threads in the order based off their
+            latestReplyTime
+            serializer_class: The ThreadListSerializer is used
+            permission_classes: anyone is allowed to call ThreadList even those
+            who are not authenticated users
+            search_fields: Allow searched to be based off the following fields
+                title,
+                poster,
+                board
+            ordering_fields: Allow search query to be ordered in reverse latestReplyTime
     """
     queryset = Thread.objects.all().order_by('-latestReplyTime')
     serializer_class = ThreadListSerializer
@@ -128,9 +141,9 @@ class PostCreate(CreateAPIView):
         This view is for API post request to create a post.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query that holds all of the Post objects
+            serializer_class: the PostCreateUpdateSerializer is used
+            permission_classes: Authenticated users are allowed to create Posts
     """
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
@@ -141,9 +154,14 @@ class PostList(ListAPIView):
         This view is for API get request to list posts in a given thread.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query that holds all of the post Objects in order of their
+            creation
+            serializer_class: The PostListSerializer is used
+            permission_classes: Anyone is allowed to access PostList even unathenticated
+            users
+            search_field: Allow search query to be filtered through the following fields:
+                message,
+                poster
     """
     queryset = Post.objects.all().order_by('-created')
     serializer_class = PostListSerializer
@@ -157,9 +175,10 @@ class PostDetail(RetrieveAPIView):
         This view is for API get request details of posts.
 
         Attributes:
-            queryset:
-            serializer_class:
-            perrission_classes:
+            queryset: Query that holds all of the Post objects
+            serializer_class: The PostDetailSerializer is used
+            permission_classes: Anyone is allowed to access Post details even
+            unathenticated users
     """
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer

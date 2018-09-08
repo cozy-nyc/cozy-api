@@ -133,19 +133,19 @@ class ItemImage(models.Model):
     item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
     url = models.ImageField(upload_to = scramble_uploaded_filename)
     index = models.IntegerField(default = 0)
-    
+
 
     def save(self, **kwargs):
         if not self.pk:
             self.index = self.item.imageCount + 1
             self.item.imageCount += 1
             self.item.save()
-        
+
         super(ItemImage, self).save(**kwargs)
 
 
-    
-  
+
+
 # Add a save to transactions
 class Transaction(models.Model):
     """

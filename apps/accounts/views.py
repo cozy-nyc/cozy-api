@@ -54,6 +54,17 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
 
 class ProfileList(ListAPIView):
+    """
+        This view is for API get request for a Profile
+
+        Attributes:
+            queryset: Query holding all of the Board Objects.
+            serializer_class: Using the Profile List Serializer
+            permission_classes: Anyone is allowed to view the list of Profiles,
+            even unathenticated users
+            search_field: Allow the query to be fiilted by the following attributes:
+                name
+    """
     queryset = Profile.objects.all()
     serializer_class = ProfileListSerializer
     permission_classes = [AllowAny]
@@ -61,6 +72,16 @@ class ProfileList(ListAPIView):
 
 
 class ProfileUpdate(RetrieveUpdateAPIView):
+    """
+        This view is for an API post request for Profile
+
+        Attributes:
+            queryset: Query holding all of the Profile objects
+            serializer_class:Using Profile Create update serializer class
+            permissions_classes = Only admin users are allowed to update profiles currently
+            search_fields: Allow the query to be filtered by the following attributes:
+                name
+    """
     queryset = Profile.objects.all()
     serializer_class = ProfileCreateUpdateSerializer
     permission_classes = [IsOwnerOrReadOnly]
@@ -70,14 +91,23 @@ class ProfileUpdate(RetrieveUpdateAPIView):
         serializer.save()
 
 class ProfileDetail(RetrieveAPIView):
+    """
+        This view for an APi get request for Profile
+
+        Attributes:
+            queryset: Query holding all of the Profile Objects
+            serializer_class: Using profile detail serializer
+            permission_classes: Any one is allowed to call a profile's detail
+            even those who are unathenticated users
+    """
     queryset = Profile.objects.all()
     serializer_class = ProfileDetailSerializer
     permission_classes = [AllowAny]
 
 
 class UserCreate(APIView):
-    """ 
-    Creates the user. 
+    """
+    Creates the user.
     """
     permission_classes = [AllowAny]
     def post(self, request, format='json'):
