@@ -21,7 +21,6 @@ from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django.apps import apps
 
 forum_name = apps.get_app_config('forum').verbose_name
@@ -40,3 +39,12 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+'''
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
+    url(r'^api-token-verify/', verify_jwt_token),
+    url(r'^authenticate/', CustomObtainAuthToken.as_view()),
+'''

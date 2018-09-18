@@ -17,7 +17,7 @@ djangorestframework-jwt
 django-environ
 
 # Python-PostgreSQL Database Adapter
-psycopg2
+psycopg2-binary
 django-crispy-forms
 
 # Time zones support

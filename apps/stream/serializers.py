@@ -14,6 +14,7 @@ from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 # from django.contrib.auth.models import User
 
+from apps.accounts.serializers import ProfileDetailSerializer
 from .models import Stream
 
 class StreamCreateUpdateSerializer(ModelSerializer):
@@ -28,7 +29,7 @@ class StreamCreateUpdateSerializer(ModelSerializer):
         ]
 
 class StreamDetailSerializer(ModelSerializer):
-    # streamer = ProfileDetailSerializer(read_only = True)
+    streamer = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Stream
         fields = [
@@ -44,7 +45,7 @@ class StreamDetailSerializer(ModelSerializer):
         ]
 
 class StreamListSerializer(ModelSerializer):
-    # streamer = ProfileDetailSerializer(read_only = True)
+    streamer = ProfileDetailSerializer(read_only = True)
     class Meta:
         model = Stream
         fields = [

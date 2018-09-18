@@ -40,6 +40,9 @@ class StreamList(ListAPIView):
     queryset = Stream.objects.all()
     serializer_class = StreamListSerializer
     permission_classes = [AllowAny]
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ['user__username', 'title', 'description', 'featured']
+    ordering_fields = ['viewers', 'live']
 
 class StreamDetail(RetrieveAPIView):
     queryset = Stream.objects.all()

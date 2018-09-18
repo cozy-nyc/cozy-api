@@ -1,5 +1,4 @@
-
-import socket
+mport socket
 
 from .base import *
 
@@ -9,11 +8,11 @@ from .base import *
 # https://github.com/owais/django-webpack-loader
 
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'builds-dev/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack', 'webpack-stats.dev.json')
-    }
-}
+            'DEFAULT': {
+                        'BUNDLE_DIR_NAME': 'builds-dev/',
+                                'STATS_FILE': os.path.join(BASE_DIR, 'webpack', 'webpack-stats.dev.json')
+                                    }
+            }
 
 
 
@@ -21,3 +20,4 @@ INTERNAL_IPS = ['127.0.0.1', '10.0.2.2',]
 
 
 ALLOWED_HOSTS = ['0.0.0.0','localhost', '127.0.0.1']
+
