@@ -16,44 +16,6 @@ from apps.accounts.models import Profile
 from django.contrib.auth.models import User
 from rest_auth.models import TokenModel
 
-
-
-class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-    username = serializers.CharField(
-            max_length=32,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-
-    password = serializers.CharField(min_length=8)
-
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'],
-             validated_data['password'])
-        return user
-
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'password')
-
-class UserDetailSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-    username = serializers.CharField(
-            max_length=32,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email')
-
-
 class ProfileCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Profile
@@ -65,6 +27,8 @@ class ProfileCreateUpdateSerializer(ModelSerializer):
 
 class ProfileDetailSerializer(ModelSerializer):
     username = ReadOnlyField()
+    lookup_field = 'user__username'
+
     class Meta:
         model = Profile
         image = SerializerMethodField()
@@ -99,3 +63,40 @@ class ProfileListSerializer(ModelSerializer):
             except:
                 image = None
             return image
+
+
+class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+            required=True,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+    username = serializers.CharField(
+            max_length=32,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+
+    password = serializers.CharField(min_length=8)
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'], validated_data['email'],
+             validated_data['password'])
+        return user
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'password')
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    profile = ProfileDetailSerializer(read_only = True)
+    email = serializers.EmailField(
+            required=True,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+    username = serializers.CharField(
+            max_length=32,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'profile')
