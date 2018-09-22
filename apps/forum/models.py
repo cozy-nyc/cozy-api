@@ -70,20 +70,18 @@ class Thread(models.Model):
     imageCount = models.PositiveIntegerField(default = 0)
     latestReplyTime = models.DateTimeField(auto_now = True)
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    image = models.ImageField(blank = True, default='',null=True)
 
 
     @property
     def tag(self):
         return self.board.tag
 
-    @property
-    def image(self):
-        return self.posts.order_by('created').first().image
 
     @property
     def blurb(self):
         return self.posts.order_by('created').first().message[:50]
-    
+
 
     def __str__(self):
         return self.title
@@ -127,7 +125,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now = True)
     board = models.ForeignKey(Board, on_delete = models.CASCADE)
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE, blank = True)
+    thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE, blank = True, null = True)
     image = models.ImageField(upload_to='postImages/',
                               blank=True,
                               default='',
@@ -150,8 +148,8 @@ class Post(models.Model):
                         self.thread.imageCount = self.thread.imageCount + 1
                 self.thread.save()
 
-            except Thread.DoesNotExist:
-                newThread = Thread(title = self.title, board = self.board, poster = self.poster)
+            except:
+                newThread = Thread(title = self.title, board = self.board, poster = self.poster, image = self.image)
                 newThread.save()
                 self.thread = newThread
                 if self.image:

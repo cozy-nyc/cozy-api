@@ -58,19 +58,20 @@ class ProfileCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'user',
+            'username',
             'profileImg',
             'location'
         ]
 
 class ProfileDetailSerializer(ModelSerializer):
-    name = ReadOnlyField()
+    username = ReadOnlyField()
     class Meta:
         model = Profile
+        image = SerializerMethodField()
         fields = [
             'id',
-            'name',
-            'image',
+            'username',
+            'profileImg',
             'location'
         ]
 
@@ -82,12 +83,14 @@ class ProfileDetailSerializer(ModelSerializer):
             return image
 
 class ProfileListSerializer(ModelSerializer):
-    name = ReadOnlyField()
+    username = ReadOnlyField()
     class Meta:
         model = Profile
+        image = SerializerMethodField()
         fields = [
-            'name',
-            'image'
+            'id',
+            'username',
+            'profileImg'
         ]
 
         def get_image(self, obj):
