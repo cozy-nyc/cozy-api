@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
- 
+
 
 
 
@@ -25,12 +25,12 @@ class Profile(models.Model):
         return self.user.username
 
     def __unicode__(self):
-        return self.user.username 
+        return self.user.username
 
     @property
-    def name(self):
+    def username(self):
         return self.user.username
-    
+
     @property
     def image(self):
         return self.profileImg.image
@@ -42,4 +42,3 @@ def create_profile_for_new_user(sender, created, instance, **kwargs):
     if created:
         profile = Profile(user=instance)
         profile.save()
-    

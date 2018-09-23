@@ -16,6 +16,53 @@ from apps.accounts.models import Profile
 from django.contrib.auth.models import User
 from rest_auth.models import TokenModel
 
+class ProfileCreateUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = [
+            'username',
+            'profileImg',
+            'location'
+        ]
+
+class ProfileDetailSerializer(ModelSerializer):
+    username = ReadOnlyField()
+    lookup_field = 'user__username'
+
+    class Meta:
+        model = Profile
+        image = SerializerMethodField()
+        fields = [
+            'id',
+            'username',
+            'profileImg',
+            'location'
+        ]
+
+        def get_image(self,obj):
+            try:
+                image = obj.image.url
+            except:
+                image = None
+            return image
+
+class ProfileListSerializer(ModelSerializer):
+    username = ReadOnlyField()
+    class Meta:
+        model = Profile
+        image = SerializerMethodField()
+        fields = [
+            'id',
+            'username',
+            'profileImg'
+        ]
+
+        def get_image(self, obj):
+            try:
+                image = obj.image.url
+            except:
+                image = None
+            return image
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,6 +87,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'password')
 
 class UserDetailSerializer(serializers.ModelSerializer):
+    profile = ProfileDetailSerializer(read_only = True)
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=User.objects.all())]
@@ -51,48 +99,4 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
-
-
-class ProfileCreateUpdateSerializer(ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = [
-            'user',
-            'profileImg',
-            'location'
-        ]
-
-class ProfileDetailSerializer(ModelSerializer):
-    name = ReadOnlyField()
-    class Meta:
-        model = Profile
-        fields = [
-            'id',
-            'name',
-            'image',
-            'location'
-        ]
-
-        def get_image(self,obj):
-            try:
-                image = obj.image.url
-            except:
-                image = None
-            return image
-
-class ProfileListSerializer(ModelSerializer):
-    name = ReadOnlyField()
-    class Meta:
-        model = Profile
-        fields = [
-            'name',
-            'image'
-        ]
-
-        def get_image(self, obj):
-            try:
-                image = obj.image.url
-            except:
-                image = None
-            return image
+        fields = ('id', 'username', 'email', 'profile')

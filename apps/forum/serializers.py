@@ -20,10 +20,12 @@ class PostCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = [
+            'title',
             'message',
             'poster',
             'thread',
-            'image'
+            'image',
+            'board'
         ]
 
 
@@ -90,7 +92,8 @@ class ThreadDetailSerializer(ModelSerializer):
             'latestReplyTime',
             'views',
             'imageCount',
-            'posts'
+            'posts',
+            'image'
         ]
 
         def get_image(self,obj):
@@ -116,6 +119,8 @@ class ThreadListSerializer(ModelSerializer):
             'imageCount',
             'created',
             'poster',
+            'board',
+            'image'
 
         ]
 
