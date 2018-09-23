@@ -103,6 +103,7 @@ class ProfileDetail(RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileDetailSerializer
     permission_classes = [AllowAny]
+    lookup_field = 'user__username'
 
 
 class UserCreate(APIView):
