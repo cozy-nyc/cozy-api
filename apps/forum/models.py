@@ -21,6 +21,8 @@ class Board(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     tag = models.CharField(max_length=10, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
+    nextBid = models.PositiveIntegerField(default = 0)
+
 
     def __str__(self):
         return self.name
@@ -63,6 +65,7 @@ class Thread(models.Model):
     """
     title = models.CharField(max_length=250, db_index=True)
     slug = models.SlugField(max_length=250, db_index=True, blank=True)
+    bid = models.PositiveIntegerField(default = 0)
     created = models.DateTimeField(auto_now = True)
     board = models.ForeignKey(Board, related_name='threads', on_delete=models.CASCADE)
     replyCount = models.PositiveIntegerField(default = 0)
@@ -121,6 +124,7 @@ class Post(models.Model):
             image: an imagefield for posts.
     """
     title = models.TextField(default = '', blank = True)
+    bid = models.PositiveIntegerField(default = 0)
     message = models.TextField(default = '')
     created = models.DateTimeField(auto_now = True)
     board = models.ForeignKey(Board, on_delete = models.CASCADE)
@@ -142,6 +146,10 @@ class Post(models.Model):
 
     def save(self, **kwargs):
         if not self.pk:
+            self.bid = self.board.nextBid
+            self.board.nextBid = self.board.nextBid + 1
+            self.board.save()
+
             try:
                 self.thread.replyCount = self.thread.replyCount + 1
                 if self.image:
@@ -149,7 +157,7 @@ class Post(models.Model):
                 self.thread.save()
 
             except:
-                newThread = Thread(title = self.title, board = self.board, poster = self.poster, image = self.image)
+                newThread = Thread(title = self.title, board = self.board, poster = self.poster, image = self.image, bid = self.bid)
                 newThread.save()
                 self.thread = newThread
                 if self.image:

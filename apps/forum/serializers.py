@@ -37,6 +37,7 @@ class PostDetailSerializer(ModelSerializer):
 
         fields = [
             'id',
+            'bid',
             'created',
             'poster',
             'message',
@@ -57,6 +58,7 @@ class PostListSerializer(ModelSerializer):
         image = SerializerMethodField()
         fields = [
             'id',
+            'bid',
             'created',
             'poster',
             'message',
@@ -82,6 +84,7 @@ class ThreadDetailSerializer(ModelSerializer):
         fields = [
             'id',
             'title',
+            'bid',
             'slug',
             'created',
             'poster',
@@ -112,6 +115,7 @@ class ThreadListSerializer(ModelSerializer):
         model = Thread
         fields = [
             'id',
+            'bid',
             'title',
             'blurb',
             'views',
