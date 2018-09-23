@@ -58,6 +58,7 @@ class BoardDetail(RetrieveAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardDetailSerializer
     permission_classes = [AllowAny]
+    lookup_field = 'tag'
 
 
 class BoardCreate(CreateAPIView):

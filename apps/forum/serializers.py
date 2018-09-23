@@ -143,6 +143,7 @@ class BoardListSerializer(ModelSerializer):
 
 class BoardDetailSerializer(ModelSerializer):
     threads = ThreadListSerializer(many=True, read_only=True)
+    lookup_field = 'tag'
     class Meta:
         model = Board
         fields = [
