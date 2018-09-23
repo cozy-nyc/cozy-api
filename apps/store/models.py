@@ -4,9 +4,9 @@ from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .manager import CategoryManager, ItemManager, TransactionManager
-from django.db.models.signals import post_save
 import datetime
 import uuid
+from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 class Category(models.Model):
@@ -85,6 +85,7 @@ class Item(models.Model):
             default = 1
     )
     objects = ItemManager()
+    primaryImage = models.ImageField(upload_to = 'images/')
     imageCount = models.IntegerField(default = 0)
 
     def save(self, **kwargs):
@@ -144,7 +145,11 @@ class ItemImage(models.Model):
         super(ItemImage, self).save(**kwargs)
 
 
-
+@receiver(post_save, sender = Item)
+def create_itemImage_for_new_item(sender, created, instance, **kwargs):
+    if created:
+        itemImage = ItemImage(item = instance, url = instance.primaryImage)
+        itemImage.save()
 
 # Add a save to transactions
 class Transaction(models.Model):
