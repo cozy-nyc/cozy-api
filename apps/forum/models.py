@@ -16,6 +16,9 @@ class Board(models.Model):
         slug: A string that holds the slug URL snippet for readable URLs
         lastUpdated: A DateTime that stores the last time a post was contributed
                     to.
+        nextBid: An integer field used to count the amount of posts on a board
+                    this number will be passed on to our posts to have that relative
+                    ID that will be displayed on the forum.
     """
 
     name = models.CharField(max_length=50, db_index=True)
@@ -51,6 +54,7 @@ class Thread(models.Model):
         Attributes:
             title: a string that holds the title of the thread
             slug: a string that holds the slug URL snippet for the Thread
+            bid: integer that holds the thread ID relative to the board
             created: a datetime object that holds the time the Thread was created
             poster: the User Object that created the Thread
             board: a reference to the board model where the Thread will be posted
@@ -62,6 +66,8 @@ class Thread(models.Model):
                             thread repliess
             latestReplyTime: a Datetime object that holds the last time a user
                              has replied to the thread
+            image: Image field that holds an image that will be displayed with
+                    the thread
     """
     title = models.CharField(max_length=250, db_index=True)
     slug = models.SlugField(max_length=250, db_index=True, blank=True)
@@ -117,11 +123,16 @@ class Post(models.Model):
     """
         A class for Post object
         Attributes:
+            title: Hidden text field, this is only used in the creation of
+                a post that will be the head of a thread. 
             message: the content within the post itself (the text)
             created: a date time object that stored the time of the post's creation
             poster: the user who created the post
             thread: a foreign key to a thread object where the post has been made
             image: an imagefield for posts.
+            bid: A integer field that holds the post ID, which is relative to each board
+                    (making it not a unique ID throughout the entire database, but only for
+                    a specific board)
     """
     title = models.TextField(default = '', blank = True)
     bid = models.PositiveIntegerField(default = 0)

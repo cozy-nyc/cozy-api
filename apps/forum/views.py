@@ -125,6 +125,7 @@ class ThreadList(ListAPIView):
                 title,
                 poster,
                 board
+                example: http://example.com/thread/title?search=Treyway
             ordering_fields: Allow search query to be ordered in reverse latestReplyTime
     """
     queryset = Thread.objects.all().order_by('-latestReplyTime')
@@ -163,6 +164,7 @@ class PostList(ListAPIView):
             search_field: Allow search query to be filtered through the following fields:
                 message,
                 poster
+                example: http://example.com/post/message?search=treyway
     """
     queryset = Post.objects.all().order_by('-created')
     serializer_class = PostListSerializer
@@ -179,7 +181,7 @@ class PostDetail(RetrieveAPIView):
             queryset: Query that holds all of the Post objects
             serializer_class: The PostDetailSerializer is used
             permission_classes: Anyone is allowed to access Post details even
-            unathenticated users
+                unathenticated users
     """
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
