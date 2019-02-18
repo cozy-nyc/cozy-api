@@ -64,6 +64,7 @@ class ProfileList(ListAPIView):
             even unathenticated users
             search_field: Allow the query to be fiilted by the following attributes:
                 name
+            example: http://example.com/thread/user?search=Treyway
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileListSerializer

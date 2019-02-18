@@ -124,7 +124,7 @@ class Post(models.Model):
         A class for Post object
         Attributes:
             title: Hidden text field, this is only used in the creation of
-                a post that will be the head of a thread. 
+                a post that will be the head of a thread.
             message: the content within the post itself (the text)
             created: a date time object that stored the time of the post's creation
             poster: the user who created the post
@@ -172,7 +172,7 @@ class Post(models.Model):
                 newThread.save()
                 self.thread = newThread
                 if self.image:
+                    self.thread.save()
                     self.thread.imageCount = self.thread.imageCount + 1
-                self.thread.save()
 
         super(Post, self).save(**kwargs)

@@ -45,3 +45,4 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
+These steps should allow you to run the application no problem.
