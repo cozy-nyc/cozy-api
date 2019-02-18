@@ -1,0 +1,97 @@
+/*CSS Reset*/
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 500;
+  color: #F8F5EB;
+  -webkit-overflow-scrolling:touch;
+  border-style: solid;
+  box-sizing: border-box;
+  border-width: 20px;
+  background-color: #FFD8E7;
+  /* background-image: url('tyler-the-creator.jpg'); */
+  background-size:  cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #F8F5EB;
+	font-weight: 700;
+  margin: 0 0 20px;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 700;
+}
+
+a {
+  color: #F8F5EB;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+a:hover, a:focus a:visited {
+  color: #F8F5EB;
+  text-decoration: none;
+}
+
+p{
+  font-size: 18px;
+}
+
+.logo {
+  width: 50%;
+  height: auto;
+}
+
+.content-wrapper{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Section 1 */
+.header{
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height:100%;
+  background-color: rgba(249, 246, 236, 0.75);
+}
+
+#logo {
+  padding-top: 40vmin;
+  width: 30vh;
+}
+
+#logo svg path{
+}
+
+/* Mail List Sign-Up Forum*/
+.maillist{
+  padding: 20px;
+}
+.maillist input{
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+}
+
+.maillist button{
+  height: 30px;
+  border: none;
+  padding: 0 10px;
+  /*background-color: #b30000;
+  color: #e6e6e6;*/
+}

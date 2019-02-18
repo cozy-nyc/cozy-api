@@ -6,6 +6,7 @@ __Discord__ - https://discord.gg/3WSA2SG
 
 ## Requirements
 * Python 3.5 or higher
+* Postgres
 
 ## Setup and customize
 
@@ -36,7 +37,7 @@ DEFAULT_FROM_EMAIL=[default email]
 
 2. In the requirements folder run
 ```
-pip install -r local.txt
+pip3 install -r requirements/local.txt
 ```
 
 3. Run basic django commands such as
