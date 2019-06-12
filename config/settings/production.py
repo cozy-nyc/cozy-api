@@ -16,10 +16,10 @@ WEBPACK_LOADER = {
 # Use Whitenoise to serve static files
 # ------------------------------------------------------------------------------
 # https://whitenoise.readthedocs.io/
-
-MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#
+#MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+#
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Use Gunicorn as WSGI HTTP server
