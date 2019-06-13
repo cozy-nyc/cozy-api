@@ -1,4 +1,3 @@
 #!/bin/bash
 
-
-docker-compose -f run django python manage.py "$@"
+docker-compose -f docker-compose.yml exec django python manage.py "$@"
