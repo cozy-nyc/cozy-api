@@ -32,7 +32,7 @@ db.sqlite3
 
 pgdata
 
-bin
+
 
 #commenting out old requirement shit
 #django-allauth==0.30.0
