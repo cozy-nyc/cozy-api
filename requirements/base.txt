@@ -1,5 +1,5 @@
 # Django
-django==2.1.7
+django==2.1.9
 
 # Configuration
 dj-database-url
