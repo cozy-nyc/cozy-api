@@ -44,4 +44,3 @@ def create_stream_for_new_profile(sender, created, instance, **kwargs):
     if created:
         stream = Stream(user=instance)
         stream.save()
-
