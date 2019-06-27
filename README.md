@@ -1,11 +1,5 @@
 # cozy.nyc backend
 
-### Join Our Discord
-__Discord__ - https://discord.gg/3WSA2SG
-
-## Requirements
-* Python 3.6 or higher
-* Postgres
 
 ## Setup for local development
 
@@ -14,8 +8,8 @@ __Discord__ - https://discord.gg/3WSA2SG
 DEBUG=true
 SECRET_KEY=[KEY]
 DJANGO_SETTINGS_MODULE=config.settings.local
-ALLOWED_HOSTS=0.0.0.0
-CORS_WHITELIST=['https://0.0.0.0:3000']
+ALLOWED_HOSTS=0.0.0.0,localhost,127.0.0.1
+CORS_WHITELIST=http://0.0.0.0:3000
 DATABASE_URL=postgres://[user]:[password]@[ip or localhost]:5432/[database]
 
 MAILGUN_API_KEY=[API_KEY]
@@ -29,6 +23,16 @@ EMAIL_HOST_PASSWORD=[PASSWORD]
 EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 DEFAULT_FROM_EMAIL=[DEFAULT_EMAIL]
 ```
+
+You have a few options when it comes to running a development server on your machine.
+You can install all the required packages and services on your machine or you can
+use Docker. _Using docker for local development might be easier to get going on your machine._
+
+### Local Build
+#### Requirements:
+* Python 3.6 or higher
+* Postgres
+
 
 2. Install required python packages:
 ```sh
@@ -44,11 +48,13 @@ python manage.py runserver
 
 
 ### Docker
-Using docker for local development might be easier to get going on your machine.
+#### Requirements:
+* Docker 3
+* docker-compose
 
-We are using Docker 3 for this build.
 
-1. Add the following lines to your `.env` file to setup your
+
+2. Add the following lines to your `.env` file to setup your
  postgres server.  
 ```bash
 # Docker Postgres
@@ -58,7 +64,7 @@ POSTGRES_USER=[USER]
 POSTGRES_DB=[DATABASE]
 ```
 
-2. run a local development server:
+3. run a local development server:
 ```sh
 ./bin/develop
 ```
@@ -68,3 +74,8 @@ To use any django commands use:
 ```sh
 ./bin/django [COMMAND]
 ```
+
+
+## Join Our Discord
+
+**Discord** - <https://discord.gg/3WSA2SG>

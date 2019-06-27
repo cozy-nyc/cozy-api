@@ -1,5 +1,5 @@
 # Django
-django
+django==2.1.9
 
 # Configuration
 dj-database-url
@@ -15,6 +15,9 @@ django-webpack-loader
 djangorestframework
 djangorestframework-jwt
 django-environ
+django-filter
+django-cors-headers
+
 
 # Python-PostgreSQL Database Adapter
 psycopg2-binary
@@ -26,6 +29,3 @@ pytz
 pillow
 
 stripe
-
-django-filter
-django-cors-headers
