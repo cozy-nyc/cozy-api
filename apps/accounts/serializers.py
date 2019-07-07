@@ -12,9 +12,44 @@ from rest_framework.serializers import (
 from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from apps.accounts.models import Profile
+from apps.accounts.models import Profile, Service, ServiceMessage
 from django.contrib.auth.models import User
 from rest_auth.models import TokenModel
+
+
+class ServiceMessageDetailSerializer(ModelSerializer):
+    class Meta:
+        model = ServiceMessage
+        fields = [
+            'important',
+            'text'
+        ]
+
+
+
+class ServiceListSerializer(ModelSerializer):
+    message = ServiceMessageDetailSerializer(read_only = True)
+    class Meta:
+        model = Service
+        fields = [
+            'service',
+            'status',
+            'message'
+        ]
+
+
+class ServiceDetailSerializer(ModelSerializer):
+    message = ServiceMessageDetailSerializer(read_only = True)
+    class Meta:
+        model = Service
+        fields = [
+            'service',
+            'status',
+            'message'
+        ]
+
+
+
 
 class ProfileCreateUpdateSerializer(ModelSerializer):
     class Meta:
@@ -23,6 +58,7 @@ class ProfileCreateUpdateSerializer(ModelSerializer):
             'username',
             'profileImg',
             'location'
+            'bio'
         ]
 
 class ProfileDetailSerializer(ModelSerializer):
@@ -37,6 +73,7 @@ class ProfileDetailSerializer(ModelSerializer):
             'username',
             'profileImg',
             'location'
+            'bio'
         ]
 
         def get_image(self,obj):
