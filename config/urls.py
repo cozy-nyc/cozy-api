@@ -32,6 +32,7 @@ from apps.forum import views as forum_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^$', TemplateView.as_view(template_name="index.html")),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
     url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),

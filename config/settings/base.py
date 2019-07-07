@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'rest_framework',
+<<<<<<< HEAD
+=======
+    'allauth',
+>>>>>>> 18ffd9121777416ce29b3ae57538046bd4b0a486
     'rest_auth',
     'rest_auth.registration',
     'rest_framework.authtoken',
@@ -75,16 +79,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://0.0.0.0:3000',
-]
+CORS_ORIGIN_WHITELIST = env('CORS_WHITELIST').split(',')
 
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
