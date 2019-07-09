@@ -46,18 +46,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 
-class ServiceList(ListAPIView):
-    queryset = Service.objects.all()
-    serializer_class = ServiceListSerializer
-    permission_classes = [AllowAny]
-
-class ServiceDetailSerializer(RetrieveAPIView):
-    queryset = Service.object.all()
-    serializer_class = ServiceDetailSerializer
-    permission_classes = [AllowAny]
-    search_fields = ('service')
-
-
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):

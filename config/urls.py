@@ -27,6 +27,7 @@ forum_name = apps.get_app_config('forum').verbose_name
 store_name = apps.get_app_config('store').verbose_name
 accounts_name = apps.get_app_config('accounts').verbose_name
 stream_name = apps.get_app_config('stream').verbose_name
+services_name = apps.get_app_config('services').verbose_name
 
 from apps.forum import views as forum_views
 
@@ -35,8 +36,9 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="index.html")),
     url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
-    url(r'^', include(('apps.stream.urls', store_name), namespace='stream')),
+    url(r'^', include(('apps.stream.urls', stream_name), namespace='stream')),
     url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),
+    url(r'^', include(('apps.services.urls', servces_name), namespace='service')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
