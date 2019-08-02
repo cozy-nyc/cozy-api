@@ -10,6 +10,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework.response import Response
 
+from rest_framework.views import APIView
+
 from rest_framework import viewsets
 
 from rest_framework.generics import (
@@ -31,11 +33,21 @@ from rest_framework.permissions import (
     )
 
 from .serializers import *
-
+from apps.services.serializers import ServiceDetailSerializer
+from apps.services.models import Service
 
 #------------------------------------------------------------------------------
 #Category
 #------------------------------------------------------------------------------
+class ExchangeService(APIView):
+    def get(self,request):
+        service = Service.objects.get(service="exchange")
+
+        service_serializer=ServiceDetailSerializer(service)
+
+        return Response({
+            'service':service_serializer.data
+        })
 
 
 class CategoryList(ListAPIView):

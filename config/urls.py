@@ -34,11 +34,11 @@ from apps.forum import views as forum_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name="index.html")),
-    url(r'^', include(('apps.forum.urls', forum_name), namespace='forum')),
+    url(r'^boards/', include(('apps.forum.urls', forum_name), namespace='forum')),
     url(r'^', include(('apps.store.urls', store_name), namespace='store')),
     url(r'^', include(('apps.stream.urls', stream_name), namespace='stream')),
     url(r'^', include(('apps.accounts.urls', accounts_name), namespace='accounts')),
-    url(r'^', include(('apps.services.urls', servces_name), namespace='service')),
+    url(r'^', include(('apps.services.urls', services_name), namespace='service')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

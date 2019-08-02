@@ -49,12 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_filters',
 
     'rest_framework',
-<<<<<<< HEAD
-=======
+
     'allauth',
->>>>>>> 18ffd9121777416ce29b3ae57538046bd4b0a486
     'rest_auth',
     'rest_auth.registration',
     'rest_framework.authtoken',

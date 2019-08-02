@@ -10,7 +10,7 @@ from rest_framework.serializers import (
     Field
     )
 from rest_framework import serializers
-from apps.accounts.models import Service, ServiceMessage
+from apps.services.models import Service, ServiceMessage
 
 
 class ServiceMessageDetailSerializer(ModelSerializer):

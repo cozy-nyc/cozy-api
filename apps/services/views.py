@@ -43,7 +43,7 @@ class ServiceList(ListAPIView):
     permission_classes = [AllowAny]
 
 class ServiceDetailSerializer(RetrieveAPIView):
-    queryset = Service.object.all()
+    queryset = Service.objects.all()
     serializer_class = ServiceDetailSerializer
     permission_classes = [AllowAny]
     search_fields = ('service')

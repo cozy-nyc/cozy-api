@@ -24,7 +24,7 @@ class ProfileCreateUpdateSerializer(ModelSerializer):
         fields = [
             'username',
             'profileImg',
-            'location'
+            'location',
             'bio'
         ]
 
@@ -39,7 +39,7 @@ class ProfileDetailSerializer(ModelSerializer):
             'id',
             'username',
             'profileImg',
-            'location'
+            'location',
             'bio'
         ]
 
