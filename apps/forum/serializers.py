@@ -67,13 +67,14 @@ class PostListSerializer(ModelSerializer):
 
 class ThreadCreateUpdateSerializer(ModelSerializer):
     class Meta:
-        model = Thread
+        model = Post
         fields = [
             'title',
-            'board',
-            'image'
+            'message',
+            'poster',
+            'image',
+            'board'
         ]
-
 
 class ThreadDetailSerializer(ModelSerializer):
     posts = PostDetailSerializer(many = True, read_only = True)
