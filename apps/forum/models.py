@@ -9,23 +9,19 @@ from apps.accounts.models import Profile
 
 class Board(models.Model):
     """This is a class for the Board Object
-
-    Attributes:
-        name: A string that holds the name of the board
-        tag: A string that holds the abbreviation of the board
-        slug: A string that holds the slug URL snippet for readable URLs
-        lastUpdated: A DateTime that stores the last time a post was contributed
+        Attributes:
+            name: A string that holds the name of the board
+            tag: A string that holds the abbreviation of the board
+            lastUpdated: A DateTime that stores the last time a post was contributed
                     to.
-        nextBid: An integer field used to count the amount of posts on a board
+            nextBid: An integer field used to count the amount of posts on a board
                     this number will be passed on to our posts to have that relative
                     ID that will be displayed on the forum.
     """
 
     name = models.CharField(max_length=50, db_index=True)
     tag = models.CharField(max_length=10, db_index=True)
-    slug = models.SlugField(max_length=50, db_index=True)
     nextBid = models.PositiveIntegerField(default = 0)
-
 
     def __str__(self):
         return self.name
@@ -53,8 +49,6 @@ class Thread(models.Model):
 
         Attributes:
             title: a string that holds the title of the thread
-            slug: a string that holds the slug URL snippet for the Thread
-            bid: integer that holds the thread ID relative to the board
             created: a datetime object that holds the time the Thread was created
             poster: the User Object that created the Thread
             board: a reference to the board model where the Thread will be posted
@@ -68,10 +62,9 @@ class Thread(models.Model):
                              has replied to the thread
             image: Image field that holds an image that will be displayed with
                     the thread
+            bid: reference to the first post in the bid
     """
     title = models.CharField(max_length=250, db_index=True)
-    slug = models.SlugField(max_length=250, db_index=True, blank=True)
-    bid = models.PositiveIntegerField(default = 0)
     created = models.DateTimeField(auto_now = True)
     board = models.ForeignKey(Board, related_name='threads', on_delete=models.CASCADE)
     replyCount = models.PositiveIntegerField(default = 0)
@@ -90,6 +83,10 @@ class Thread(models.Model):
     @property
     def blurb(self):
         return self.posts.order_by('created').first().message[:50]
+
+    @property
+    def bid(self):
+        return self.posts.order_by('created').first().bid
 
 
     def __str__(self):
@@ -146,6 +143,7 @@ class Post(models.Model):
                               default='',
                               null=True)
 
+
     def __str__(self):
        return self.message
 
@@ -168,7 +166,7 @@ class Post(models.Model):
                 self.thread.save()
 
             except:
-                newThread = Thread(title = self.title, board = self.board, poster = self.poster, image = self.image, bid = self.bid)
+                newThread = Thread(title = self.title, board = self.board, poster = self.poster, image = self.image)
                 newThread.save()
                 self.thread = newThread
                 if self.image:
