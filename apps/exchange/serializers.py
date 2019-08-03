@@ -6,7 +6,7 @@ from rest_framework.serializers import (
     RelatedField,
     ReadOnlyField,
     )
-from apps.store.models import Category, Item, Transaction, ItemImage
+from .models import Category, Item, Transaction, ItemImage
 
 
 
@@ -52,7 +52,7 @@ class CategoryDetailSerializer(ModelSerializer):
 #------------------------------------------------------------------------------
 class ItemImageDetailSerializer(ModelSerializer):
     class Meta:
-        model = ItemImage 
+        model = ItemImage
         url = SerializerMethodField()
         fields = [
             'id',
@@ -112,7 +112,7 @@ class ItemDetailSeralizer(ModelSerializer):
             'stock',
         ]
 
-  
+
 
 class ItemListlSeralizer(ModelSerializer):
     images = ItemImageDetailSerializer(many = True, read_only = True)

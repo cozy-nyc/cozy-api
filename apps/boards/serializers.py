@@ -10,7 +10,7 @@ from rest_framework.serializers import (
     Field
     )
 
-from apps.forum.models import Board, Post, Thread
+from .models import Board, Post, Thread
 from apps.accounts.models import Profile
 from apps.accounts.serializers import ProfileDetailSerializer
 
