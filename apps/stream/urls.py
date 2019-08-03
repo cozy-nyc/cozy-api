@@ -5,6 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^stream/$', views.StreamList.as_view()),
+    url(r'^stream/info$', views.StreamService.as_view()),
     url(r'^stream/(?P<pk>[0-9]+)/$', views.StreamDetail.as_view()),
     url(r'^stream/edit/(?P<pk>[0-9]+)/$', views.StreamDetail.as_view()),
 ]

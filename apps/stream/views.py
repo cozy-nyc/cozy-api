@@ -9,6 +9,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework.response import Response
 
+from rest_framework.views import APIView
+
+
 from rest_framework.generics import(
     CreateAPIView,
     DestroyAPIView,
@@ -32,6 +35,8 @@ from .permissions import IsStreamerOrReadOnly, IsUserOrReadOnly, IsUploaderOrRea
 from .serializers import *
 
 from django.contrib.auth.models import User
+from apps.services.serializers import ServiceDetailSerializer
+from apps.services.models import Service
 
 
 # Create your views here.
@@ -43,6 +48,22 @@ class StreamList(ListAPIView):
     filter_backends = (SearchFilter, OrderingFilter)
     search_fields = ['user__username', 'title', 'description', 'featured']
     ordering_fields = ['viewers', 'live']
+
+class StreamService(APIView):
+    def get(self,request):
+        service = Service.objects.get(service="stream")
+        stream = Stream.objects.all()
+
+        service_serializer = ServiceDetailSerializer(service)
+        stream_seralizer = StreamListSerializer(stream, many=True)
+
+        return Response({
+            'service':service_serializer.data,
+            'streams':stream_seralizer.data
+        })
+
+
+
 
 class StreamDetail(RetrieveAPIView):
     queryset = Stream.objects.all()
