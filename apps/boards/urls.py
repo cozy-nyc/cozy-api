@@ -5,6 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework import routers
 
 urlpatterns = [
+    url(r'^list$', views.BoardList.as_view()),
     url(r'^info$', views.BoardService.as_view()),
     url(r'^board/(?P<tag>[\w\-]+)/$', views.BoardDetail.as_view()),
     url(r'^board/create$', views.BoardCreate.as_view()),
