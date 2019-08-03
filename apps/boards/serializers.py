@@ -86,7 +86,6 @@ class ThreadDetailSerializer(ModelSerializer):
             'id',
             'title',
             'bid',
-            'slug',
             'created',
             'poster',
             'tag',
@@ -154,7 +153,6 @@ class BoardDetailSerializer(ModelSerializer):
         fields = [
             'id',
             'name',
-            'slug',
             'tag',
             'threads'
         ]
