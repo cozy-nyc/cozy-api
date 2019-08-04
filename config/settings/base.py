@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_filters',
 
     'rest_framework',
+
     'allauth',
     'rest_auth',
     'rest_auth.registration',
@@ -59,10 +61,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'channels',
 
+    'apps.accounts',
+    'apps.exchange',
     'apps.stream',
-    'apps.forum',
-    'apps.store',
-    'apps.accounts'
+    'apps.boards',
+    'apps.services',
+
 ]
 
 MIDDLEWARE = [

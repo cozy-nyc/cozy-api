@@ -16,13 +16,16 @@ from apps.accounts.models import Profile
 from django.contrib.auth.models import User
 from rest_auth.models import TokenModel
 
+
+
 class ProfileCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Profile
         fields = [
             'username',
             'profileImg',
-            'location'
+            'location',
+            'bio'
         ]
 
 class ProfileDetailSerializer(ModelSerializer):
@@ -36,7 +39,8 @@ class ProfileDetailSerializer(ModelSerializer):
             'id',
             'username',
             'profileImg',
-            'location'
+            'location',
+            'bio'
         ]
 
         def get_image(self,obj):
