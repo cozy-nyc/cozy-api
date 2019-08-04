@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'webpack_loader',
     'corsheaders',
+    'channels',
 
     'apps.stream',
     'apps.forum',
@@ -201,3 +202,6 @@ EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+
+ASGI_APPLICATION = "config.routing.application"

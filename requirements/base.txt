@@ -18,6 +18,7 @@ django-environ
 django-filter
 django-cors-headers
 
+channels
 
 # Python-PostgreSQL Database Adapter
 psycopg2-binary
