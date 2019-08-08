@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'^board/$', views.BoardList.as_view()),
+    url(r'^info$', views.BoardService.as_view()),
     url(r'^board/(?P<tag>[\w\-]+)/$', views.BoardDetail.as_view()),
     url(r'^board/create$', views.BoardCreate.as_view()),
     url(r'^thread/$', views.ThreadList.as_view()),

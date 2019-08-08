@@ -8,6 +8,7 @@ from rest_framework.filters import(
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from rest_framework.generics import (
     CreateAPIView,
@@ -27,7 +28,8 @@ from rest_framework.permissions import (
     )
 
 from .serializers import *
-
+from apps.services.serializers import ServiceDetailSerializer
+from apps.services.models import Service
 
 class BoardList(ListAPIView):
     """
@@ -43,6 +45,18 @@ class BoardList(ListAPIView):
     serializer_class = BoardListSerializer
     permission_classes = [AllowAny]
 
+class BoardService(APIView):
+    def get(self, request):
+        service = Service.objects.get(service="boards")
+        boards = Board.objects.all()
+
+        service_serializer = ServiceDetailSerializer(service)
+        board_serializer = BoardListSerializer(boards, many=True )
+
+        return Response({
+            'service':service_serializer.data,
+            'boards':board_serializer.data
+        })
 
 class BoardDetail(RetrieveAPIView):
     """
@@ -87,7 +101,7 @@ class ThreadCreate(CreateAPIView):
             permission_classes: Only authenticated users are allowed to create
             threads.
     """
-    queryset = Thread.objects.all()
+    queryset = Post.objects.all()
     serializer_class = ThreadCreateUpdateSerializer
     permission_classes = [IsAuthenticated]
 
@@ -131,7 +145,8 @@ class ThreadList(ListAPIView):
     queryset = Thread.objects.all().order_by('-latestReplyTime')
     serializer_class = ThreadListSerializer
     permission_classes = [AllowAny]
-    filter_backends = (SearchFilter, OrderingFilter)
+    filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
+    filterset_fields = ['board__tag']
     search_fields = ['title', 'poster__user__username', 'board__name']
     ordering_fields = ('latestReplyTime',)
 
