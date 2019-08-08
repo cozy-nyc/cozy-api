@@ -61,9 +61,9 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'apps.accounts',
-    'apps.store',
+    'apps.exchange',
     'apps.stream',
-    'apps.forum',
+    'apps.boards',
     'apps.services',
 
 ]
