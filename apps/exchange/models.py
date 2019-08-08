@@ -33,7 +33,7 @@ class Category(models.Model):
         verbose_name_plural = 'categories'
 
     def get_absolute_url(self):
-        return reverse('store:item_list_by_category', args=[self.slug])
+        return reverse('exchange:item_list_by_category', args=[self.slug])
 
     def save(self, **kwargs):
         """
@@ -121,7 +121,7 @@ class Item(models.Model):
         verbose_name_plural = 'Items'
 
     def get_absolute_url(self):
-        return reverse('store:item_detail', args=[self.id, self.slug])
+        return reverse('exchange:item_detail', args=[self.id, self.slug])
 
     def __unicode__(self):
         return ('%d: %s' (self.id, self.name))
