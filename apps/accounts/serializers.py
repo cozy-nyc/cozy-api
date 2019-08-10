@@ -22,11 +22,12 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
+        image = SerializerMethodField()
 
         # Add custom claims
         token['username'] = user.username
         # ...
-
+        
         return token
 
 
