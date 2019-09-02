@@ -52,7 +52,8 @@ The following API involving boards are
     ]
 }
 ```
-- ```boards/board/[Tag Of Board]```: Return general info of the specific board, as well as the active threads on the site.
+- ```boards/board/[Tag Of Board]```: Return general info of the specific board, as well as the active threads on the site. NOTE: by adding /active, /archived or /locked, this query will automatically filter the threads within the boards. For example ```boards/board/t/active``` will return all of the active threads within the technology board. This API call is best used if we are
+
 ```json
 {
     "id": 3,
