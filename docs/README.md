@@ -10,7 +10,7 @@ These Django apps could be found in the ```apps``` folder of this repository
 
 
 ### Boards
-For all API calls involving boards go to [boards](boards_docs.md)
+For all API calls involving boards go to [boards](board_docs.md)
 
 ### Exchange
 For all API calls involving exchange to go [exchange](exchange_docs.md)
