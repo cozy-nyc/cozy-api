@@ -22,6 +22,7 @@ class Board(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     tag = models.CharField(max_length=10, db_index=True)
     nextBid = models.PositiveIntegerField(default = 0)
+    activeThreadCount = models.PositiveIntegerField(default = 0)
 
     def __str__(self):
         return self.name
@@ -41,6 +42,14 @@ class Board(models.Model):
         """
         return self.threads.order_by('created').last()
 
+    @property
+    def leastActiveThread(self):
+        """
+            This function is meant to receive the least active post on the specific board.
+            It checks for the thread that has not been updated for a while so we can replace it
+            with a new thread.
+        """
+        return self.threads.order_by('created').first()
     @property
     def activeThreads(self):
         """
@@ -152,7 +161,11 @@ class Thread(models.Model):
             slug = slug.lower()
             slug = slug.replace(" ", "-")
             self.slug = slug
-            self.status = ACTIVE
+            self.status = 'active'
+            if self.board.activeThreadCount >= 5:
+                self.board.leastActiveThread.status = 'archived'
+            else:
+                self.board.activeThreadCount = self.board.activeThreadCount + 1
 
         if self.pk:
             self.latestReplyTime = datetime.now
