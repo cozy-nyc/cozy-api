@@ -10,13 +10,13 @@ These Django apps could be found in the ```apps``` folder of this repository
 
 
 ### Boards
-For all API calls involving boards go to [boards](docs/boards_docs.md)
+For all API calls involving boards go to [boards](board_docs.md)
 
 ### Exchange
-For all API calls involving exchange to go [exchange](docs/exchange_docs.md)
+For all API calls involving exchange to go [exchange](exchange_docs.md)
 
 ### Stream
-For all API calls involving Stream go to go [stream](docs/stream_docs.md)
+For all API calls involving Stream go to go [stream](stream_docs.md)
 
 ### Accounts
-For all API calls involving accounts go to [accounts](docs/account_docs.md)
+For all API calls involving accounts go to [accounts](account_docs.md)
