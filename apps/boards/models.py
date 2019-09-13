@@ -43,14 +43,6 @@ class Board(models.Model):
         return self.threads.order_by('created').last()
 
     @property
-    def leastActiveThread(self):
-        """
-            This function is meant to receive the least active post on the specific board.
-            It checks for the thread that has not been updated for a while so we can replace it
-            with a new thread.
-        """
-        return self.threads.order_by('created').first()
-    @property
     def activeThreads(self):
         """
             This function returns back a list of active threads from a specific board
@@ -79,6 +71,20 @@ class Board(models.Model):
                 self: current instance of the object
         """
         return self.threads.filter(status = 'archived')
+
+    def archiveLeastActiveThread(self):
+        """
+            This function doesn't return anything. It only updates the least active thread
+            and changes its status to archived, this is so we can make more room for active
+            threads.
+
+            Args:
+                self: current instance of the object.
+
+        """
+        laThread = self.threads.order_by('latestReplyTime').first()
+        laThread.status = ('archived')
+        laThread.save()
 
 
 
@@ -163,12 +169,11 @@ class Thread(models.Model):
             self.slug = slug
             self.status = 'active'
             if self.board.activeThreadCount >= 5:
-                self.board.leastActiveThread.status = 'archived'
+                self.board.archiveLeastActiveThread()
             else:
-                self.board.activeThreadCount = self.board.activeThreadCount + 1
+                self.board.activeThreadCount += 1
+                self.board.save()
 
-        if self.pk:
-            self.latestReplyTime = datetime.now
 
         super(Thread, self).save(**kwargs)
 
@@ -220,6 +225,7 @@ class Post(models.Model):
                 self.thread.replyCount = self.thread.replyCount + 1
                 if self.image:
                         self.thread.imageCount = self.thread.imageCount + 1
+                self.thread.latestReplyTime = datetime.now
                 self.thread.save()
 
             except:
