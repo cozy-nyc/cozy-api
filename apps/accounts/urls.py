@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^api-token-verify/', verify_jwt_token),
     url(r'^profile/$', views.ProfileList.as_view()),
     url(r'^profile/(?P<user__username>[\w\-]+)/$', views.ProfileDetail.as_view()),
-    url(r'^profile/edit/(?P<pk>[0-9]+)/$', views.ProfileUpdate.as_view()),
+    url(r'^profile/edit/(?P<user__username>[\w\-]+)/$', views.ProfileUpdate.as_view()),
     url(r'^register', views.UserCreate.as_view(), name = 'account-create')
 ]
