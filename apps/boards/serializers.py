@@ -41,7 +41,9 @@ class PostDetailSerializer(ModelSerializer):
             'created',
             'poster',
             'message',
+            'nsfw',
             'image'
+
         ]
 
         def get_image(self,obj):
@@ -73,7 +75,8 @@ class ThreadCreateSerializer(ModelSerializer):
             'message',
             'poster',
             'image',
-            'board'
+            'board',
+            'nsfw'
         ]
 
 class ThreadUpdateSerializer(ModelSerializer):
@@ -85,7 +88,8 @@ class ThreadUpdateSerializer(ModelSerializer):
             'poster',
             'image',
             'board',
-            'status'
+            'status',
+            'nsfw'
         ]
 
 class ThreadDetailSerializer(ModelSerializer):
@@ -109,7 +113,8 @@ class ThreadDetailSerializer(ModelSerializer):
             'imageCount',
             'posts',
             'image',
-            'status'
+            'status',
+            'nsfw'
 
         ]
 
@@ -138,7 +143,8 @@ class ThreadListSerializer(ModelSerializer):
             'created',
             'poster',
             'board',
-            'image'
+            'image',
+            'nsfw'
 
         ]
 
@@ -156,7 +162,8 @@ class BoardListSerializer(ModelSerializer):
         fields = [
             'id',
             'name',
-            'tag'
+            'tag',
+            'nsfw'
         ]
 
 class BoardDetailSerializer(ModelSerializer):
@@ -170,7 +177,8 @@ class BoardDetailSerializer(ModelSerializer):
             'name',
             'tag',
             'threads',
-            'latestPost',
+            'nsfw',
+            'latestPost'
 
         ]
 class BoardActiveThreadsSerializer(ModelSerializer):
@@ -184,7 +192,9 @@ class BoardActiveThreadsSerializer(ModelSerializer):
             'name',
             'tag',
             'latestPost',
-            'activeThreads'
+            'nsfw',
+            'activeThreads',
+
         ]
 
 class BoardLockedThreadsSerializer(ModelSerializer):
@@ -197,7 +207,9 @@ class BoardLockedThreadsSerializer(ModelSerializer):
             'id',
             'name',
             'tag',
+            'nsfw',
             'lockedThreads'
+
         ]
 
 class BoardArchivedThreadsSerializer(ModelSerializer):
@@ -210,7 +222,9 @@ class BoardArchivedThreadsSerializer(ModelSerializer):
             'id',
             'name',
             'tag',
+            'nsfw',
             'archivedThreads'
+
         ]
 
 class BoardCreateUpdateSerializer(ModelSerializer):

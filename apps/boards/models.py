@@ -23,6 +23,7 @@ class Board(models.Model):
     tag = models.CharField(max_length=10, db_index=True)
     nextBid = models.PositiveIntegerField(default = 0)
     activeThreadCount = models.PositiveIntegerField(default = 0)
+    nsfw = models.BooleanField(default = False)
 
     def __str__(self):
         return self.name
@@ -124,6 +125,7 @@ class Thread(models.Model):
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
     image = models.ImageField(blank = True, default='',null=True)
     status = models.CharField(max_length = 20, choices = STATUSES, default = ACTIVE)
+    nsfw = models.BooleanField(default = False)
 
 
 
