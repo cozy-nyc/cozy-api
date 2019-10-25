@@ -199,7 +199,6 @@ class BoardActiveThreadsSerializer(ModelSerializer):
 
 class BoardLockedThreadsSerializer(ModelSerializer):
     lockedThreads = ThreadListSerializer(many=True, read_only=True)
-    latestPost = ThreadDetailSerializer(read_only = True)
     lookup_field = 'tag'
     class Meta:
         model = Board
@@ -214,7 +213,6 @@ class BoardLockedThreadsSerializer(ModelSerializer):
 
 class BoardArchivedThreadsSerializer(ModelSerializer):
     archivedThreads = ThreadListSerializer(many=True, read_only=True)
-    latestPost = ThreadDetailSerializer(read_only = True)
     lookup_field = 'tag'
     class Meta:
         model = Board
