@@ -15,7 +15,20 @@ from django.contrib.auth.models import User
 from apps.accounts.models import Profile
 from django.contrib.auth.models import User
 from rest_auth.models import TokenModel
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        image = SerializerMethodField()
+
+        # Add custom claims
+        token['username'] = user.username
+        # ...
+        
+        return token
 
 
 class ProfileCreateUpdateSerializer(ModelSerializer):

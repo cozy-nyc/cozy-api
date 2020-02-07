@@ -160,7 +160,6 @@ class BoardListSerializer(ModelSerializer):
     class Meta:
         model = Board
         fields = [
-            'id',
             'name',
             'tag',
             'nsfw'
@@ -173,7 +172,6 @@ class BoardDetailSerializer(ModelSerializer):
     class Meta:
         model = Board
         fields = [
-            'id',
             'name',
             'tag',
             'threads',

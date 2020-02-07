@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'webpack_loader',
     'corsheaders',
+    'channels',
 
     'apps.accounts',
     'apps.exchange',
@@ -168,11 +169,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-    'DEFAULT_AUTHENTICATION_CLAS/SES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -205,3 +206,6 @@ EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+
+
+ASGI_APPLICATION = "config.routing.application"

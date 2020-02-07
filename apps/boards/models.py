@@ -19,8 +19,8 @@ class Board(models.Model):
                     ID that will be displayed on the forum.
     """
 
-    name = models.CharField(max_length=50, db_index=True)
-    tag = models.CharField(max_length=10, db_index=True)
+    name = models.CharField(max_length=50, db_index=True, unique=True)
+    tag = models.CharField(primary_key=True, max_length=4, db_index=True)
     nextBid = models.PositiveIntegerField(default = 0)
     activeThreadCount = models.PositiveIntegerField(default = 0)
     nsfw = models.BooleanField(default = False)

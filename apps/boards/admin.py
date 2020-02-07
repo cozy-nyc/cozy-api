@@ -6,7 +6,7 @@ class BoardAdmin(admin.ModelAdmin):
     """
         Displays a board's id and name
     """
-    list_display = ['id','name']
+    list_display = ['tag','name']
 
 admin.site.register(Board, BoardAdmin)
 
