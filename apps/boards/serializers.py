@@ -41,7 +41,6 @@ class PostDetailSerializer(ModelSerializer):
             'created',
             'poster',
             'message',
-            'nsfw',
             'image'
 
         ]
@@ -76,7 +75,6 @@ class ThreadCreateSerializer(ModelSerializer):
             'poster',
             'image',
             'board',
-            'nsfw'
         ]
 
 class ThreadUpdateSerializer(ModelSerializer):
@@ -89,7 +87,6 @@ class ThreadUpdateSerializer(ModelSerializer):
             'image',
             'board',
             'status',
-            'nsfw'
         ]
 
 class ThreadDetailSerializer(ModelSerializer):
@@ -108,14 +105,12 @@ class ThreadDetailSerializer(ModelSerializer):
             'blurb',
             'board',
             'replyCount',
-            'latestReplyTime',
+            'updated',
             'views',
             'imageCount',
             'posts',
             'image',
             'status',
-            'nsfw'
-
         ]
 
         def get_image(self,obj):
@@ -144,7 +139,6 @@ class ThreadListSerializer(ModelSerializer):
             'poster',
             'board',
             'image',
-            'nsfw'
 
         ]
 
@@ -186,7 +180,6 @@ class BoardActiveThreadsSerializer(ModelSerializer):
     class Meta:
         model = Board
         fields = [
-            'id',
             'name',
             'tag',
             'latestPost',
@@ -201,7 +194,6 @@ class BoardLockedThreadsSerializer(ModelSerializer):
     class Meta:
         model = Board
         fields = [
-            'id',
             'name',
             'tag',
             'nsfw',
@@ -215,7 +207,6 @@ class BoardArchivedThreadsSerializer(ModelSerializer):
     class Meta:
         model = Board
         fields = [
-            'id',
             'name',
             'tag',
             'nsfw',

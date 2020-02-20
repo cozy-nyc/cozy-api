@@ -11,7 +11,7 @@ class Board(models.Model):
     """This is a class for the Board Object
         Attributes:
             name: A string that holds the name of the board
-            tag: A string that holds the abbreviation of the board
+            tag: A string that holds the abbreviation of the board (index in the db)
             lastUpdated: A DateTime that stores the last time a post was contributed
                     to.
             nextBid: An integer field used to count the amount of posts on a board
@@ -127,12 +127,10 @@ class Thread(models.Model):
     replyCount = models.PositiveIntegerField(default = 0)
     views = models.PositiveIntegerField(default = 0)
     imageCount = models.PositiveIntegerField(default = 0)
-    latestReplyTime = models.DateTimeField(auto_now = True)
+    updated = models.DateTimeField(auto_now = True)
     poster = models.ForeignKey(Profile, on_delete=models.CASCADE)
     image = models.ImageField(blank = True, default='',null=True)
     status = models.CharField(max_length = 20, choices = STATUSES, default = ACTIVE)
-    nsfw = models.BooleanField(default = False)
-
 
 
     @property
